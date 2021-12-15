@@ -1,0 +1,141 @@
+@charset "UTF-8";
+a{
+  	text-decoration : none;
+  }
+  table{
+ 	border-collapse: collapse;
+ 	width: 1000px;    
+ 	margin-top : 20px;
+ 	text-align: center;
+  }
+  td, th{
+  	border : 1px solid black;
+  	height: 50px;
+  }
+  th{
+  	font-size : 17px;
+  }
+  thead{
+  	font-weight: 700;
+  }
+  .table_wrap{
+  	margin : 50px 0 0 50px;
+  }
+  .bno_width{
+  	width: 12%;
+  }
+  .writer_width{
+  	width: 20%;
+  }
+  .regdate_width{
+  	width: 15%;
+  }
+  .updatedate_width{
+  	width: 15%;
+  }
+  .enroll_btn{
+    float:left;
+  	font-size: 20px;
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-weight: 600;
+  }
+  .list_btn{
+  	float:center;
+  	font-size: 20px;
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-weight: 600;
+  }
+  
+  .pageInfo{
+      list-style : none;
+      display: inline-block;
+    margin: 20px 0 0 150px;      
+  }
+  .pageInfo li{
+      float: left;
+    font-size: 20px;
+    margin-left: 18px;
+    padding: 7px;
+    font-weight: 500;
+  }
+  .login_area{
+	height:30%;
+	display:inline-block;
+	text-align:center;
+}
+  .login_button{
+  	background-color: #ffffff; /* Green */
+    border: 1px solid #ddd;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  .login_area>span{
+	background-color: #ffffff; /* Green */
+    border: 1px solid #ddd;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+/*로그인 성공 영역*/
+.login_success_area{
+	width:25%;
+	height:30%;
+	border:2px solid #7474ad;
+	border-radius:15px;
+	margin:5% auto;
+}
+.login_success_area>span{
+	display:block;
+	text-align:left;
+	margin-left:10px
+}
+.login_success_area>a{
+    font-size: 15px;
+    font-weight: 900;
+    display: inline-block;
+    margin-top: 5px;
+    background: #e1e5e8;
+    width: 82px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 25px;
+    color: #606267;    
+}
+
+.search_area{
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: 260px;
+  }
+  .search_area input{
+      height: 30px;
+    width: 250px;
+  }
+  .search_area button{
+     width: 100px;
+    height: 36px;
+  }
+  
+  .search_area select{
+  	height:35px;
+  }
+  
+
+ a:link {color:black; text-decoration: none;}
+ a:visited {color:black; text-decoration: none;}
+ a:hover {color:blue; text-decoration: underline;}
+ .active{
+ 	text-decoration:underline;
+ }

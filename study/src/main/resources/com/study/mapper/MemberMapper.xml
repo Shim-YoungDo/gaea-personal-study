@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.study.mapper.MemberMapper">
+  
+  <!-- 회원관리(로그인, 회원가입)처리를 위한 쿼리문 -->
+  
+  <!-- 회원가입 -->
+  <insert id="memberJoin">
+  	INSERT INTO member(MEMBER_ID
+  	, MEMBER_PW
+  	, MEMBER_NAME
+  	, MEMBER_MAIL
+  	, ADMIN_CHECK)
+  	VALUES(#{memberID}
+  	, #{memberPW}
+  	, #{memberName}
+  	, #{memberMail}
+  	, #{adminCheck})
+  </insert>
+  
+  <!-- 아이디 중복 체크 -->
+  <select id="idCheck" resultType="int">
+  	SELECT EXISTS(SELECT MEMBER_ID 
+  	FROM member 
+ 	WHERE MEMBER_ID=#{memberID})
+  </select>
+  
+  <!-- 로그인 -->
+  <select id="memberLogin" resultType="com.study.vo.MemberVO">
+  	SELECT MEMBER_ID AS memberID
+  	, MEMBER_PW AS memberPW
+  	, MEMBER_NAME AS memberName
+  	FROM member
+  	WHERE MEMBER_ID = #{memberID}
+  	AND MEMBER_PW = #{memberPW}
+  </select>
+  
+  <insert id="authRandomNumber">
+  	INSERT INTO authentication(mailAuth)
+  	VALUES(#{mailCheckNumber})
+  </insert>
+  
+  <select id="mailAuthInquire" resultType="int">
+		SELECT mailAuth
+		FROM authentication
+		WHERE mailAuth=#{mailAuth}
+	</select>
+  
+  </mapper>
