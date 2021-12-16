@@ -56,6 +56,7 @@
 			</div>
 			<span class="final_mail_ck">이메일을 입력해주세요.</span>
 		</div>
+		<!--  
 		<div class="mail_check_wrap">
 			<div class="mail_check_input_box" id="mail_check_input_box_false">
 				<input class="mail_check_input" disabled="disabled">
@@ -67,6 +68,7 @@
 				<span id="mail_check_input_box_warnning"></span>
 			</div>
 		</div>
+		-->
 		<div class="join_button_wrap">
 			<input type="button" class="join_button" value="가입하기">
 		</div>
@@ -97,104 +99,7 @@ $(document).ready(function(){
 		var pwck = $('.pwcheck_input').val();			// 비밀번호 확인 입력란
 		var name = $('.member_input').val();			// 이름 입력란
 		var mail = $('.mail_input').val();			// 이메일 입력란
-        
-        /*
-		try{
-			if(id==""){
-				//$('.final_id_ck').css('display','block');
-				//idCheck = false;
-				throw new Error;
-			}
-			else{
-				$('.final_id_ck').css('display', 'none');
-				idCheck = true;
-			}
-			
-		}catch(Error){
-			$('.final_id_ck').css('display','block');
-			idCheck = false;
-		}
-		
-		
-		try{
-			if(pw==""){
-				throw new Error;
-			}
-			else{
-				$('.final_pw_ck').css('display', 'none');
-				pwCheck = true;
-			}
-			
-		}catch(Error){
-			$('.final_pw_ck').css('display','block');
-			pwCheck = false;
-		}
-		
-		
-		try{
-			if(pwck==""){
-				throw new Error;
-			}
-			else{
-				$('.final_pwck_ck').css('display', 'none');
-				pwckCheck = true;
-			}
-			
-		}catch(Error){
-			$('.final_pwck_ck').css('display','block');
-			pwckCheck = false;
-		}
-		
-		
-		
-		try{
-			if(name==""){
-				throw new Error;
-			}
-			else{
-				$('.final_name_ck').css('display', 'none');
-				nameCheck = true;
-			}
-			
-		}catch(Error){
-			$('.final_name_ck').css('display','block');
-			nameCheck = false;
-		}
-		
-		
-		try{
-			if(mail==""){
-				throw new Error;
-			}
-			else{
-				$('.final_mail_ck').css('display', 'none');
-				mailCheck = true;
-			}
-			
-		}catch(Error){
-			$('.final_mail_ck').css('display','block');
-			mailCheck = false;
-		}
-        
-		
-		
-		try{
-			
-			if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck == true){
-				//$("#join_form").attr("action", "/member/join");
-				//$("#join_form").submit();
-				
-			}
-			$("#join_form").attr("action", "/member/join");
-			$("#join_form").submit();
-			throw new Error;
-			return false;
-			
-		}catch(Error){
-			return false;
-		}
-		*/
-		
+  	
 		/* 아이디 유효성검사 */
 		if(id == ""){
 			$('.final_id_ck').css('display','block');
@@ -241,8 +146,8 @@ $(document).ready(function(){
 		}		
 		
 		/* 최종 유효성 검사 */
-		if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck){
-			$("#join_form").attr("action", "/member/memberJoin");
+		if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck){
+			$("#join_form").attr("action", "/member/join");
 			$("#join_form").submit();			
 			
 		}		
@@ -326,15 +231,6 @@ $(document).ready(function(){
 	 
 	 var inputCode = $(".mail_check_input").val();
 	 var checkResult = $("#mail_check_input_box_warnning");
-	 var data = {mailAuth : inputCode}
-	 
-	 /*
-	 $.ajax({
-		 type:"post",
-		 url:"/member/mailCheck",
-		 data:data
-	 });
-	 */
 	 
 	 if(inputCode == code){
 		 checkResult.html("인증번호가 일치합니다.");

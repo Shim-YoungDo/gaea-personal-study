@@ -15,7 +15,7 @@ public class BoardServiceTest {
 	private static final Logger log = LoggerFactory.getLogger(BoardServiceTest.class);
 	
 	@Autowired
-	private BoardService service;
+	private NoticeService service;
 	
 	/*
 	//게시판 등록 테스트

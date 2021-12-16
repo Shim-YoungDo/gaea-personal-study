@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.study.mapper.NoticeMapper">
+  
+  <!-- 게시글 관련 쿼리문 -->
+  
+  <!-- 검색 조건문 -->
+  <sql id="criteria">
+  	<trim prefix="where (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            NOTICE_TITLE LIKE concat('%',#{keyword},'%') 
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            NOTICE_CONTENT LIKE concat('%',#{keyword},'%') 
+                        </when>
+                        <when test="type == 'W'.toString()">
+                            NOTICE_WRITER LIKE concat('%',#{keyword},'%' )
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+  </sql>
+  
+  
+  <!-- 게시글 등록 --><!-- sql mapper id ex) member.join ->이거 테스트 해볼것(가독성이 더 좋음) -->
+	<insert id="noticeRegister">
+		INSERT INTO notice(NOTICE_TITLE
+		, NOTICE_CONTENT
+		, NOTICE_WRITER) 
+		VALUES(#{noticeTitle}
+		, #{noticeContent}
+		, #{noticeWriter})
+	</insert> 
+	
+	<!-- 게시글 목록 -->
+	<!--  
+	<select id="getList" resultType="com.study.vo.BoardVO">
+		SELECT * FROM board
+	</select>
+	-->
+	
+	<!-- 게시글 조회 -->
+	<select id="noticeInquire" resultType="com.study.vo.CafeNoticeVO">
+		SELECT NOTICE_SERIAL_NUMBER AS noticeNumber
+		, NOTICE_TITLE AS noticeTitle
+		, NOTICE_CONTENT AS noticeContent
+		, NOTICE_WRITER AS noticeWriter
+		, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
+		, NOTICE_UPDATE_DATE AS noticeUpdateDate
+		FROM notice
+		WHERE NOTICE_SERIAL_NUMBER=#{noticeNumber}
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="noticeModify">
+		UPDATE notice 
+		SET NOTICE_TITLE = #{noticeTitle}
+		, NOTICE_CONTENT = #{noticeContent}
+		, NOTICE_UPDATE_DATE = now() 
+		WHERE NOTICE_SERIAL_NUMBER = #{noticeNumber}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="noticeDelete">
+		DELETE FROM notice
+		WHERE NOTICE_SERIAL_NUMBER = #{noticeNumber}
+	</delete>
+	
+	<!-- 페이징 적용 -->
+	<select id="getNoticePagingList" resultType="com.study.vo.CafeNoticeVO">
+		SELECT NOTICE_SERIAL_NUMBER AS noticeNumber
+		, NOTICE_TITLE AS noticeTitle
+		, NOTICE_WRITER AS noticeWriter
+		, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
+		, NOTICE_UPDATE_DATE AS noticeUpdateDate
+		FROM notice
+		<if test="keyword!=null">
+			<include refid="criteria"></include>
+		</if>
+		ORDER BY noticeNumber DESC
+		LIMIT ${skip}, ${amount}<!--limit((${pageNum}-1)*${amount}, ${amount} -->
+	</select>
+	
+	<!-- 게시물 총 개수 -->
+	<select id="getNoticeTotal" resultType="int">
+		SELECT COUNT(NOTICE_SERIAL_NUMBER) 
+		FROM notice
+		<if test="keyword != null">
+			<include refid="criteria"></include>
+		</if>
+	</select>
+ 
+  </mapper>

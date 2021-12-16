@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.study.service.BoardService;
+import com.study.service.NoticeService;
 import com.study.vo.Criteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,10 +20,10 @@ public class BoardMapperTest {
      private static final Logger log = LoggerFactory.getLogger(BoardMapperTest.class);
      
      @Autowired
-     private BoardMapper mapper;
+     private NoticeMapper mapper;
      
      @Autowired
-     private BoardService service;
+     private NoticeService service;
  
      /*
      //게시글 등록 테스트
@@ -91,7 +91,7 @@ public class BoardMapperTest {
      @Test
      public void testPaging() {
     	 Criteria cri = new Criteria();
-    	 List list = service.getBoardPagingList(cri);
+    	 List list = service.getNoticePagingList(cri);
     	 list.forEach(board->log.info("" +board));
      }
      

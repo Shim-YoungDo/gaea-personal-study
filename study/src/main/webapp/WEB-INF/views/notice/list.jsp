@@ -7,15 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/resources/css/board/list.css">
+<link rel="stylesheet" href="/resources/css/notice/list.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="table_wrap">
-		<a href="/board/registeView" class="enroll_btn">글쓰기</a>
-		<a href="/board/list" class="list_btn">목록</a>
+		<a href="javascript:void(0)" onClick="javascript:registeView()" class="enroll_btn">글쓰기</a>
+		<a href="/notice/list" class="list_btn">목록</a>
 		<div class="login_area">
 		<!-- 로그인 x -->
 		<c:if test="${member==null}">
@@ -42,22 +42,22 @@
 			</thead>
 			<c:forEach items="${list}" var="list">
 				<tr>
-					<td><c:out value="${list.boardNumber}" /></td>
+					<td><c:out value="${list.noticeNumber}" /></td>
 					<td>
-						<a class="move" href='<c:out value="${list.boardNumber}"/>'> 
-							<c:out value="${list.boardTitle}" />
+						<a class="move" href='<c:out value="${list.noticeNumber}"/>'> 
+							<c:out value="${list.noticeTitle}" />
 						</a>
 					</td>
 					<td>
-						<c:out value="${list.boardWriter}" />
+						<c:out value="${list.noticeWriter}" />
 					</td>
 					<td>
 						<fmt:formatDate pattern="yyyy/MM/dd"
-							value="${list.boardRegistrationDate}" />
+							value="${list.noticeRegistrationDate}" />
 					</td>
 					<td>
 						<fmt:formatDate pattern="yyyy/MM/dd"
-							value="${list.boardUpdateDate}" />
+							value="${list.noticeUpdateDate}" />
 					</td>
 				</tr>
 			</c:forEach>
@@ -173,19 +173,28 @@
 		    document.body.appendChild(f);
 		    f.submit();
 		}
-
+		
+		function registeView(){
+		    let f = document.createElement('form');
+		    f.setAttribute('method', 'post');
+		    f.setAttribute('action', '/notice/registeView');
+		    document.body.appendChild(f);
+		    f.submit();
+		}
+		
 		$(".move").on("click", function(e) {
 			e.preventDefault();
-			moveForm.append("<input type='hidden' name='boardNumber' value='"
-					+ $(this).attr("href") + "'>"); //<form>내부 boardNumber값을 저장하는 <input>태그 생성
-			moveForm.attr("action", "/board/getPage");
+			moveForm.append("<input type='hidden' name='noticeNumber' value='"
+					+ $(this).attr("href") + "'>"); //<form>내부 noticeNumber값을 저장하는 <input>태그 생성
+			moveForm.attr("action", "/notice/getPage");
+			moveForm.attr("method", "post");
 			moveForm.submit();
 				});
 		
 		$(".pageInfo a").on("click", function(e){
 			e.preventDefault();
 			moveForm.find("input[name='pageNum']").val($(this).attr("href")); //<form>내부 pageNum과 관련된 <input>태그의 value 속성값에 클릭한<a>태그 페이지 번호 삽입
-			moveForm.attr("action", "/board/list");
+			moveForm.attr("action", "/notice/list");
 			moveForm.submit();
 		});
 		
@@ -194,7 +203,7 @@
 			console.log("결과:" +value);
 			$.ajax({
 				type:"post",
-				url:"/board/pageAmount",
+				url:"/notice/pageAmount",
 				data: "pageAmount=" +value,
 				success : function(data){
 					alert("성공", +data);
@@ -209,7 +218,7 @@
 			
 			$.ajax({
 				type:"post",
-				url:"/board/pageAmount",
+				url:"/notice/pageAmount",
 				data: "pageAmount=" +pageAmount,
 				success : function(data){
 					alert("성공", +data);
@@ -273,7 +282,7 @@
 			let pageNum = $(".page_select_area [name='pageSelect']").val();
 			
 			moveForm.find("input[name='pageNum']").val(pageNum);
-			moveForm.attr("action", "/board/list");
+			moveForm.attr("action", "/notice/list");
 			moveForm.submit();
 		});
 		
@@ -284,7 +293,7 @@
 		$(".page_count_area button").on("click"function(){
 			let pageCount = $(".page_count_area [name='pageCount']").val();
 			moveForm.find("input[name='pageCount']").val(pageCount);
-			moveForm.attr("action", "/board/list");
+			moveForm.attr("action", "/notice/list");
 			moveForm.submit();
 		});
 		*/

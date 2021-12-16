@@ -1,15 +1,45 @@
 package com.study.vo;
 
-/*로그인, 회원가입에 사용될 VO*/
+/**
+ * 회원가입과 로그인 등에 필요한 회원정보들(id, p/w, 이름, 이메일 등)의 객체 값을
+ * 저장하기 위한 클래스입니다.
+ * 
+ * 
+ * @author airpo
+ * @version 1.1
+ *
+ */
 public class MemberVO {
+	/**
+	 * 회원 ID   [PK]
+	 */
+	public String memberID;
 	
-	public String memberID;  //멤버 ID
-	private String memberPW; //멤버 P/W
-	private String memberName; //멤버 이름
-	private String memberMail; //멤버 이메일
-	private int adminCheck;   //관리자 여부
+	/**
+	 * 회원 P/W
+	 */
+	private String memberPW;
 	
-	/*GETTER SETTER*/
+	/**
+	 * 회원 이름
+	 */
+	private String memberName;
+	
+	/**
+	 * 회원 이메일
+	 */
+	private String memberMail;
+	
+	/**
+	 * 관리자 여부 판단하기 위한 값
+	 * 현재는 기능상 구현이 안되어 사용하지 않음.
+	 * default:0(관리자x)
+	 */
+	private int adminCheck;
+	
+	/**
+	 * GETTER SETTER
+	 */
 	public String getMemberID() {
 		return memberID;
 	}
