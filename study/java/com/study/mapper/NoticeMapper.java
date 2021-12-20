@@ -13,7 +13,6 @@ import com.study.vo.Criteria;
  * 
  * 
  * @author airpo
- * @version 1.2
  *
  */
 @Mapper

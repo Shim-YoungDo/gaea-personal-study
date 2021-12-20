@@ -5,7 +5,6 @@ package com.study.vo;
  * 
  * 
  * @author airpo
- * @version 1.1
  *
  */
 public class PageMakeDTO {

@@ -13,13 +13,13 @@
                 <trim prefix="OR">
                     <choose>
                         <when test="type == 'T'.toString()">
-                            NOTICE_TITLE LIKE concat('%',#{keyword},'%') 
+                            NOTICE_TITLE LIKE '%'||#{keyword}||'%'
                         </when>
                         <when test="type == 'C'.toString()">
-                            NOTICE_CONTENT LIKE concat('%',#{keyword},'%') 
+                            NOTICE_CONTENT LIKE '%'||#{keyword}||'%' 
                         </when>
                         <when test="type == 'W'.toString()">
-                            NOTICE_WRITER LIKE concat('%',#{keyword},'%' )
+                            NOTICE_WRITER LIKE '%'||#{keyword}||'%'
                         </when>
                     </choose>
                 </trim>
@@ -28,7 +28,24 @@
   </sql>
   
   
-  <!-- 게시글 등록 --><!-- sql mapper id ex) member.join ->이거 테스트 해볼것(가독성이 더 좋음) -->
+  <!-- 게시글 등록 / oracle -->  
+	<insert id="noticeRegister">
+		<selectKey keyProperty="noticeNumber" resultType="int" order="BEFORE">
+		SELECT NOTICE_SEQUENCE.NEXTVAL FROM DUAL
+		</selectKey> 
+		INSERT INTO NOTICE(NOTICE_SERIAL_NUMBER
+		, NOTICE_TITLE
+		, NOTICE_CONTENT
+		, NOTICE_WRITER) 
+		VALUES(#{noticeNumber}
+		, #{noticeTitle}
+		, #{noticeContent}
+		, #{noticeWriter})
+	</insert> 
+
+
+	<!-- 게시글 등록 -->
+	<!--  
 	<insert id="noticeRegister">
 		INSERT INTO notice(NOTICE_TITLE
 		, NOTICE_CONTENT
@@ -37,12 +54,6 @@
 		, #{noticeContent}
 		, #{noticeWriter})
 	</insert> 
-	
-	<!-- 게시글 목록 -->
-	<!--  
-	<select id="getList" resultType="com.study.vo.BoardVO">
-		SELECT * FROM board
-	</select>
 	-->
 	
 	<!-- 게시글 조회 -->
@@ -74,17 +85,33 @@
 	
 	<!-- 페이징 적용 -->
 	<select id="getNoticePagingList" resultType="com.study.vo.CafeNoticeVO">
-		SELECT NOTICE_SERIAL_NUMBER AS noticeNumber
-		, NOTICE_TITLE AS noticeTitle
-		, NOTICE_WRITER AS noticeWriter
-		, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
-		, NOTICE_UPDATE_DATE AS noticeUpdateDate
-		FROM notice
+		<![CDATA[
+		SELECT NOTICE_SERIAL_NUMBER
+		, NOTICE_TITLE
+		, NOTICE_CONTENT
+		, NOTICE_WRITER
+		, NOTICE_REGISTRATION_DATE
+		, NOTICE_UPDATE_DATE
+		FROM(SELECT /*+INDEX_DESC(NOTICE pk_board) */ rownum as rn
+		, NOTICE_SERIAL_NUMBER
+		, NOTICE_TITLE
+		, NOTICE_CONTENT
+		, NOTICE_WRITER
+		, NOTICE_REGISTRATION_DATE
+		, NOTICE_UPDATE_DATE
+		FROM NOTICE
+		WHERE rownum <= #{pageNum} * #{amount}
+	]]>
+		
 		<if test="keyword!=null">
 			<include refid="criteria"></include>
 		</if>
-		ORDER BY noticeNumber DESC
-		LIMIT ${skip}, ${amount}<!--limit((${pageNum}-1)*${amount}, ${amount} -->
+	
+	
+	<![CDATA[
+			)
+		WHERE rn > (#{pageNum} - 1) * #{amount}
+	]]>
 	</select>
 	
 	<!-- 게시물 총 개수 -->
@@ -92,7 +119,7 @@
 		SELECT COUNT(NOTICE_SERIAL_NUMBER) 
 		FROM notice
 		<if test="keyword != null">
-			<include refid="criteria"></include>
+			WHERE NOTICE_SERIAL_NUMBER > 0<include refid="criteria"></include>
 		</if>
 	</select>
  

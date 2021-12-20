@@ -1,14 +1,9 @@
 package com.study.service;
 
-import java.util.Random;
-
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.study.mapper.MemberMapper;
@@ -23,6 +18,8 @@ import com.study.vo.MemberVO;
 @Service
 public class MemberServiceImpl implements MemberService {
 	
+	private static final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
+	
 	@Autowired
 	private MemberMapper mapper;
 	
@@ -36,9 +33,14 @@ public class MemberServiceImpl implements MemberService {
 	 * 회원가입을 수행하는 구현체 method
 	 */
 	@Override
-	public void memberJoin(MemberVO member) {
+	public void memberJoin(MemberVO member)  {
 		
-		mapper.memberJoin(member);
+		try{
+			mapper.memberJoin(member);
+	
+		}catch(DataAccessException e) {
+			log.info("[Member Join Mapping] error : {}", e);
+		}
 	}
 	
 	/**
@@ -47,59 +49,10 @@ public class MemberServiceImpl implements MemberService {
 	 * @return 사용자가 입력한 id값을 담아 중복 id 검사를 처리하는 쿼리와 매핑
 	 */
 	@Override
-	public int idCheck(String memberID){
+	public String idCheck(String memberID){
 		
 		return mapper.idCheck(memberID);
 	}
-	
-	/**
-	 * 사용자가 회원가입 시 입력한 메일로 인증번호를 발송하기 위해
-	 * 메일 인증번호 난수를 생성하는 구현체 method
-	 * @return 생성된 메일 인증번호
-	 * 수정사항 현재 보안상 치명적인 문제가 있어 수정중
-	 * 수정이 완료될 때까지 인증번호 기능은 사용하지 않을 예정.
-	 */
-//	@Override
-//	public int authRandomNumber() {
-//		Random random = new Random();
-//		
-//		int mailCheckNumber = random.nextInt(999999-111111)+111111;  //min~max사이 난수 생성 => (max-min)+min
-//		
-//		return mailCheckNumber;
-////		return mapper.authRandomNumber(mailCheckNumber);           
-//	}
-	
-	
-	/**
-	 * 사용자가 회원가입 시 입력한 메일로 인증번호 보내는 구현체 method
-	 * @param email  사용자가 입력한 메일 주소
-	 * @param mailCheckNumber  위 athRandomNumber() method에서 생성된 인증번호
-	 * 수정사항 현재 보안상 치명적인 문제가 있어 수정중
-	 * 수정이 완료될 때까지 인증번호 기능은 사용하지 않을 예정.
-	 */
-//	@Override
-//	public void sendMail(String email, int mailCheckNumber) throws Exception{
-//		String sendingMail = "shimdev1216@naver.com";
-//		String userMail = email;
-//		String mailTitle = "회원가입 인증 이메일입니다.";
-//		String mailContent = 
-//				"인증번호는" + mailCheckNumber + "입니다." + "<br>" + "해당 인증번호를 인증번호 입력란에 기입해 주세요.";
-//		
-//		try {
-//			MimeMessage message = mailSender.createMimeMessage();
-//			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
-//			
-//			messageHelper.setFrom(sendingMail);
-//			messageHelper.setTo(userMail);
-//			messageHelper.setSubject(mailTitle);
-//			messageHelper.setText(mailContent, true);
-//			mailSender.send(message);
-//			
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
 	
 	/**
 	 * 로그인을 수행하는 구현체 method

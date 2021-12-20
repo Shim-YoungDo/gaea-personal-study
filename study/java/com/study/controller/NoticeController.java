@@ -17,7 +17,6 @@ import com.study.vo.PageMakeDTO;
  * 공지게시판의 게시글 등록, 조회, 수정, 삭제 등의 요청을 view단에서 받아 하위 레이어(service)로 
  * 넘겨주는 역할을 하는 컨트롤러입니다.
  * @author airpo
- * @version 1.2
  *
  */
 @Controller
@@ -45,6 +44,7 @@ public class NoticeController {
 		 * view에 전달
 		 */
 		model.addAttribute("list", service.getNoticePagingList(cri));
+		log.info("[/notice/list] PARAM cri : {}, list: {}", cri.toString(), service.getNoticePagingList(cri)); 
 		
 		/**
 		 * 총 게시글 갯수

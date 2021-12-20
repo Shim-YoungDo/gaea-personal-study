@@ -16,7 +16,7 @@
 
 <h1>게시판 등록</h1>
 <form id="enroll_form" action="/notice/register" method="post">
-<c:if test="${member != null}">
+<c:if test="${member == null}">
 	<div class="input_wrap">
 		<label>Title</label>
 		<input class="noticeTitle" name="noticeTitle">
@@ -29,7 +29,7 @@
 	</div>
 	<div class="input_wrap">
 		<label>Writer</label>
-		<input class="writer_input" name="noticeWriter" readonly="readonly" value="${member}">
+		<input class="writer_input" name="noticeWriter">
 	</div>
 	<button class="enroll_button">등록</button>
 	<!-- <button class="cancel_button">취소</button>-->

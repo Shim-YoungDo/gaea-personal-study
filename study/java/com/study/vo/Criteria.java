@@ -8,7 +8,6 @@ import java.util.Arrays;
  * 을 담고있는 클래스입니다.
  * 
  * @author airpo
- * @version 1.1
  */
 public class Criteria {
 
@@ -38,16 +37,10 @@ public class Criteria {
 	private String[] typeArr;
 	
 	/**
-	 * 스킵할 게시물 수 ((pageNum-1)*amount)
-	 */
-	private int skip;
-	
-	/**
 	 * 기본 생성자->기본 세팅:pageNum=1, amount=10
 	 */
 	public Criteria() {
 		this(1,10);
-		this.skip = 0;
 	}
 	
 	/**
@@ -59,7 +52,6 @@ public class Criteria {
 	
 		this.pageNum = pageNum;
 		this.amount = amount;
-		this.skip = (pageNum-1)*amount;
 	}
 
 	/**
@@ -70,7 +62,6 @@ public class Criteria {
 	}
 
 	public void setPageNum(int pageNum) {
-		this.skip = (pageNum-1)*this.amount;
 		this.pageNum = pageNum;
 	}
 
@@ -79,16 +70,7 @@ public class Criteria {
 	}
 
 	public void setAmount(int amount) {
-		this.skip=(this.pageNum-1)*amount;
 		this.amount = amount;
-	}
-
-	public int getSkip() {
-		return skip;
-	}
-
-	public void setSkip(int skip) {
-		this.skip = skip;
 	}
 
 	public String getKeyword() {
@@ -99,8 +81,6 @@ public class Criteria {
 		this.keyword = keyword;
 	}
 
-	
-	
 	public String getType() {
 		return type;
 	}
@@ -121,6 +101,6 @@ public class Criteria {
 	@Override
 	public String toString() {
 		return "Criteria [pageNum=" + pageNum + ", amount=" + amount + ", keyword=" + keyword + ", type=" + type
-				+ ", typeArr=" + Arrays.toString(typeArr) + ", skip=" + skip + "]";
+				+ ", typeArr=" + Arrays.toString(typeArr) + "]";
 	}
 }

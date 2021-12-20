@@ -9,7 +9,6 @@ import java.util.Date;
  * 
  * 
  * @author airpo
- * @version 1.2
  *
  */
 public class CafeNoticeVO {

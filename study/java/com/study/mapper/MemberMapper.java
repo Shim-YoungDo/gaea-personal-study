@@ -10,7 +10,6 @@ import com.study.vo.MemberVO;
  * 
  * 
  * @author airpo
- * @version 1.1
  *
  */
 @Mapper
@@ -27,7 +26,7 @@ public interface MemberMapper {
 	 * 사용자가 입력한 id값을 받아와 db에 저장된 id값과 비교 후 중복체크 수행
 	 * @param memberID view에서 받아온 사용자가 입력한 id값
 	 */
-	public int idCheck(String memberID);
+	public String idCheck(String memberID);
 	
 	/**
 	 * 로그인을 수행하는 mapper method
