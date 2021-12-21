@@ -85,14 +85,14 @@ public class MemberController {
 		/**
 		 * 사용자가 입력한 id와 db에 저장되어 있는 id값의 일치여부를 판단 후 결과에 따라 존재할 시 1, 존재하지 않을 시 0을 저장
 		 */
-		String result = memberService.idCheck(memberID);
+		int result = memberService.idCheck(memberID);
 		log.info("[MEMBER] PARAM id Check Result : {}", result);
 
 		/**
 		 * id 중복검사 일치하는 id가 db에 존재할 시 "fail" string값을 반환하고 id가 db에 존재하지 않을 시 "success"
 		 * string값을 반환함.
 		 */
-		if (result != null) {
+		if (result != 0) {
 			return "fail"; // 중복 아이디 존재
 		} else {
 			return "success"; // 중복 아이디 존재x

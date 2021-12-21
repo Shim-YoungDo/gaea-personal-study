@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.study.service.NoticeService;
+import com.study.vo.CafeNoticeVO;
 import com.study.vo.Criteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,49 +31,32 @@ public class BoardMapperTest {
      @Test
      public void testEnroll() {
          
-         BoardVO vo = new BoardVO();
+         CafeNoticeVO vo = new CafeNoticeVO();
          
-         vo.setTitle("test");
-         vo.setContent("test");
-         vo.setWriter("tester");
+         vo.setNoticeTitle("efef");
+         vo.setNoticeContent("ㅇㄹㅇ");
+         vo.setNoticeWriter("ㄱㄱㄱ");
          
-         mapper.enroll(vo);
+         mapper.noticeRegister(vo);
          
-     }
-     */
+     }*/
      
-     /*
-     //게시글 목록 테스트
-     @Test
-     public void testGetList() {
-    	 List list = mapper.getList();
-    	 
-    	 for(int i=0; i<list.size(); i++) {
-    		 log.info(""+list.get(i));
-    	 }
-     }
-     */
+//     //게시글 조회
+//     @Test
+//     public void testGetPage() {
+//    	 int bno=19;
+//    	 log.info("" +service.noticeInquired(bno));
+//     }
      
-     /*
-     //게시글 조회
-     @Test
-     public void testGetPage() {
-    	 int bno=2;
-    	 log.info("" +service.getPage(bno));
-     }
-     */
      
      /*
      //게시글 수정 테스트
      @Test
      public void testModify() {
-    	 BoardVO board = new BoardVO();
-    	 board.setBno(6);
-    	 board.setTitle("수정 제목123");
-    	 board.setContent("수정 내용123");
-    	 
-    	 int result = service.modify(board);
-    	 log.info("결과:" +result);
+    	 CafeNoticeVO notice = new CafeNoticeVO();
+    	 notice.setNoticeNumber(19);
+    	 notice.setNoticeTitle("수정 제목123");
+    	 notice.setNoticeContent("수정 내용123");
      }
      */
      
@@ -87,14 +71,24 @@ public class BoardMapperTest {
      }
      */
      
-     //페이징 테스트
-     @Test
-     public void testPaging() {
-    	 Criteria cri = new Criteria();
-    	 List list = service.getNoticePagingList(cri);
-    	 list.forEach(board->log.info("" +board));
-     }
      
+//     //페이징 테스트
+//     @Test
+//     public void testPaging() {
+//    	 Criteria cri = new Criteria();
+//    	 cri.setType("TWC");
+//		 String[] typeArr = cri.getTypeArr();
+//		 
+//		 for(int i = 0; i < typeArr.length;i++) {
+//			 System.out.println("typeArr : " + typeArr[i]);
+//		 }
+//		 List list = mapper.getNoticePagingList(cri);
+//		 
+//		 list.forEach(board -> log.info("" + board));
+//     }
+     
+     
+//     
      
      
  

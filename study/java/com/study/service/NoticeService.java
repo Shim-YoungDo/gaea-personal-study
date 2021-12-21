@@ -1,6 +1,7 @@
 package com.study.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.study.vo.CafeNoticeVO;
 import com.study.vo.Criteria;

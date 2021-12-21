@@ -8,7 +8,7 @@
   
   <!-- 검색 조건문 -->
   <sql id="criteria">
-  	<trim prefix="where (" suffix=")" prefixOverrides="OR">
+  	<trim prefix="AND (" suffix=")" prefixOverrides="OR">
             <foreach collection="typeArr" item="type">
                 <trim prefix="OR">
                     <choose>
@@ -83,36 +83,34 @@
 		WHERE NOTICE_SERIAL_NUMBER = #{noticeNumber}
 	</delete>
 	
-	<!-- 페이징 적용 -->
 	<select id="getNoticePagingList" resultType="com.study.vo.CafeNoticeVO">
-		<![CDATA[
-		SELECT NOTICE_SERIAL_NUMBER
-		, NOTICE_TITLE
-		, NOTICE_CONTENT
-		, NOTICE_WRITER
-		, NOTICE_REGISTRATION_DATE
-		, NOTICE_UPDATE_DATE
-		FROM(SELECT /*+INDEX_DESC(NOTICE pk_board) */ rownum as rn
-		, NOTICE_SERIAL_NUMBER
-		, NOTICE_TITLE
-		, NOTICE_CONTENT
-		, NOTICE_WRITER
-		, NOTICE_REGISTRATION_DATE
-		, NOTICE_UPDATE_DATE
+	<![CDATA[
+		SELECT 
+		 noticeNumber
+		, noticeTitle
+		, noticeContent
+		, noticeWriter
+		, noticeRegistrationDate
+		, noticeUpdateDate
+		FROM(SELECT /*+INDEX_DESC(NOTICE PK_NOTICE) */ rownum as rn
+		, NOTICE_SERIAL_NUMBER AS noticeNumber
+		, NOTICE_TITLE AS noticeTitle
+		, NOTICE_CONTENT AS noticeContent
+		, NOTICE_WRITER AS noticeWriter
+		, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
+		, NOTICE_UPDATE_DATE AS noticeUpdateDate
 		FROM NOTICE
-		WHERE rownum <= #{pageNum} * #{amount}
+		WHERE rownum <=#{pageNum} * #{amount}
 	]]>
-		
 		<if test="keyword!=null">
 			<include refid="criteria"></include>
 		</if>
-	
-	
 	<![CDATA[
 			)
 		WHERE rn > (#{pageNum} - 1) * #{amount}
 	]]>
 	</select>
+	
 	
 	<!-- 게시물 총 개수 -->
 	<select id="getNoticeTotal" resultType="int">

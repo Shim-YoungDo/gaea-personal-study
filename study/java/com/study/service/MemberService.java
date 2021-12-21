@@ -22,7 +22,7 @@ public interface MemberService {
 	 * 아이디 중복 체크 판단을 수행하는 method
 	 * @param memberID view에서 받아온 사용자가 입력한 id값
 	 */
-	public String idCheck(String memberID);
+	public int idCheck(String memberID);
 	
 	/**
 	 * 로그인을 수행하는 method

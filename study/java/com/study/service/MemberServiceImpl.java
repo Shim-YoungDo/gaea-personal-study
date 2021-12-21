@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 	 * @return 사용자가 입력한 id값을 담아 중복 id 검사를 처리하는 쿼리와 매핑
 	 */
 	@Override
-	public String idCheck(String memberID){
+	public int idCheck(String memberID){
 		
 		return mapper.idCheck(memberID);
 	}

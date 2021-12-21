@@ -1,5 +1,8 @@
 package com.study.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,7 @@ public class NoticeController {
 		 * 현재 페이지, 한 페이지 당 게시글 수 정보를 담아 게시글 리스트를 조회 후 list에 담아
 		 * view에 전달
 		 */
+//		List<Map<String, Object>> pageList = service.getNoticePagingList(cri);
 		model.addAttribute("list", service.getNoticePagingList(cri));
 		log.info("[/notice/list] PARAM cri : {}, list: {}", cri.toString(), service.getNoticePagingList(cri)); 
 		
@@ -83,7 +87,7 @@ public class NoticeController {
 	 */
 	@RequestMapping(value="/notice/register", method=RequestMethod.POST)
 	public String noticeRegister(CafeNoticeVO notice) {
-		log.info("[/notice/register] PARAM notice : {} : ", notice.toString());
+		log.info("[/notice/register] PARAM notice : {}  ", notice.toString());
 		service.noticeRegister(notice);
 		return "redirect:/notice/list";
 	}
@@ -97,7 +101,7 @@ public class NoticeController {
 	 */
 	@RequestMapping(value="/notice/getPage", method=RequestMethod.POST)
 	public String noticeInquire(int noticeNumber, Model model, Criteria cri) {
-		log.info("[/notice/getPage] PARAM noticeNumber : {} : ", noticeNumber);
+		log.info("[/notice/getPage] PARAM noticeNumber : {}  ", noticeNumber);
 		
 		/**
 		 * 게시글 고유 식별 번호를 이용해 해당되는 게시글 정보를 pageInfo에 담아

@@ -42,22 +42,22 @@
 			</thead>
 			<c:forEach items="${list}" var="list">
 				<tr>
-					<td><c:out value="${list[0].noticeNumber}" /></td>
+					<td><c:out value="${list.noticeNumber}" /></td>
 					<td>
-						<a class="move" href='<c:out value="${list[0].noticeNumber}"/>'> 
-							<c:out value="${list[0].noticeTitle}" />
+						<a class="move" href='<c:out value="${list.noticeNumber}"/>'> 
+							<c:out value="${list.noticeTitle}" />
 						</a>
 					</td>
 					<td>
-						<c:out value="${list[0].noticeWriter}" />
+						<c:out value="${list.noticeWriter}" />
 					</td>
 					<td>
 						<fmt:formatDate pattern="yyyy/MM/dd"
-							value="${list[0].noticeRegistrationDate}" />
+							value="${list.noticeRegistrationDate}" />
 					</td>
 					<td>
 						<fmt:formatDate pattern="yyyy/MM/dd"
-							value="${list[0].noticeUpdateDate}" />
+							value="${list.noticeUpdateDate}" />
 					</td>
 				</tr>
 			</c:forEach>
