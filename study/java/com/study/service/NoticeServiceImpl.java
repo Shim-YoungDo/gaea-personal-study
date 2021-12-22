@@ -16,7 +16,7 @@ import com.study.vo.Criteria;
 /**
  * 공지게시판의 게시물 등록, 조회, 수정, 삭제 등과 관련된 비즈니스 로직을 처리하는 구현체입니다.
  * 
- * @author airpo
+ * @author ydshim
  */
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -33,10 +33,11 @@ public class NoticeServiceImpl implements NoticeService {
 	 */
 	@Override
 	public void noticeRegister(CafeNoticeVO notice) {
+		
 		try {
 			mapper.noticeRegister(notice);
-		} catch (DataAccessException e) {
-			log.info("[notice Inquire Mapping] error : {}", e);
+		} catch (DataAccessException registException) {
+			log.info("[notice Inquire Mapping] error : {}", registException.getRootCause());
 		}
 	}
 
@@ -58,10 +59,11 @@ public class NoticeServiceImpl implements NoticeService {
 	 */
 	@Override
 	public void noticeModify(CafeNoticeVO notice) {
+		
 		try {
 			mapper.noticeModify(notice);
-		} catch (DataAccessException e) {
-			log.info("[notice Modify Mapping] error : {}", e);
+		} catch (DataAccessException modifyException) {
+			log.info("[notice Modify Mapping] error : ", modifyException.getRootCause());
 		}
 	}
 
@@ -72,10 +74,11 @@ public class NoticeServiceImpl implements NoticeService {
 	 */
 	@Override
 	public void noticeDelete(int noticeNumber) {
+		
 		try {
 			mapper.noticeDelete(noticeNumber);
-		} catch (DataAccessException e) {
-			log.info("[notice Delete Mapping] error : {}", e);
+		} catch (DataAccessException deleteException) {
+			log.info("[notice Delete Mapping] error : {}", deleteException.getRootCause());
 		}
 	}
 

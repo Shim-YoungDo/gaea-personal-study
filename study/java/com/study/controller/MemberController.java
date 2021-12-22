@@ -18,7 +18,7 @@ import com.study.vo.MemberVO;
 /**
  * 회원관리(회원가입, 로그인)등의 요청을 view단에서 받아 하위계층(service)로 넘겨주는 역할을 하는 컨트롤러입니다.
  * 
- * @author airpo
+ * @author ydshim
  *
  */
 @Controller
@@ -54,14 +54,8 @@ public class MemberController {
 		/**
 		 * member 객체를 담아 회원가입에 해당하는 서비스계층으로 전달.
 		 */
-		try {
-			memberService.memberJoin(member);
-
-		} catch (Exception e) {
-			log.info("[/member/join] error : {}", e);
-//			return "redirect:/member/join";
-		}
-		log.info("[MEMBER] PARAM member : {}", member.toString());
+		memberService.memberJoin(member);
+		log.info("[/member/join] PARAM member : {}", member.toString());
 		return "redirect:/notice/list";
 	}
 
@@ -80,13 +74,13 @@ public class MemberController {
 	@RequestMapping(value = "/member/memberIdCheck", method = RequestMethod.POST)
 	@ResponseBody
 	public String memberIdCheck(String memberID) throws Exception {
-		log.info("[MEMBER] PARAM memberId : {}", memberID);
+		log.info("[/member/memberIdCheck] PARAM memberId : {}", memberID);
 
 		/**
 		 * 사용자가 입력한 id와 db에 저장되어 있는 id값의 일치여부를 판단 후 결과에 따라 존재할 시 1, 존재하지 않을 시 0을 저장
 		 */
 		int result = memberService.idCheck(memberID);
-		log.info("[MEMBER] PARAM id Check Result : {}", result);
+		log.info("[/member/memberIdCheck] PARAM id Check Result : {}", result);
 
 		/**
 		 * id 중복검사 일치하는 id가 db에 존재할 시 "fail" string값을 반환하고 id가 db에 존재하지 않을 시 "success"
@@ -136,20 +130,19 @@ public class MemberController {
 		/**
 		 * db에 저장된 member id,pw값과 사용자가 입력한 member id,pw값 일치 여부 판단 db에 일치하는 정보가 없으면
 		 * result=0의 값을 view에 전달 후, 로그인 페이지로 리다이렉트하고 일치하는 정보가 있으면 해당 member객체의 id값을 가져와
-		 * session에 저장 후, 공지게시판의 게시글 리스트 페이지로 리다이렉트한다. session에 member객체의 모든 데이터가 아닌
-		 * id값만 저장하는 이유는 pw같은 치명적인 정보를 탈취당할 위험이 있어 최소한의 식별 정보인 id값만 저장해둔다.
+		 * session에 저장 후, 공지게시판의 게시글 리스트 페이지로 리다이렉트한다
 		 */
 		if (loginMember == null) {
 			int result = 0;
 			redirect.addFlashAttribute("result", result);
 			return "redirect:/member/login";
 		}
-		log.info("[/MEMBER/LOGIN] memeberID param : {}  ", loginMember.getMemberID());
+		log.info("[/member/login] memeberID param : {}  ", loginMember.getMemberID());
 		/**
 		 * session에 member객체의 id값 저장
 		 */
 		session.setAttribute("member", loginMember.getMemberID());
-		log.info("[/MEMBER/LOGIN] session param : {}  ", session.getAttribute("member"));
+		log.info("[/member/login] session param ID : {}  ", session.getAttribute("member"));
 		return "redirect:/notice/list";
 	}
 

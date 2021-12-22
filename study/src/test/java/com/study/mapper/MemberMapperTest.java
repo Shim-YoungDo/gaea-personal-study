@@ -1,14 +1,19 @@
 package com.study.mapper;
 
+import java.sql.SQLException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.study.controller.NoticeController;
+import com.study.service.MemberService;
 import com.study.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,22 +24,30 @@ public class MemberMapperTest {
 	@Autowired
 	private MemberMapper mapper;
 	
-	/*
+	@Autowired
+	private MemberService service;
+	
+	
 	//회원가입 테스트
 	@Test
-	public void joinMapperTest() {
-		MemberVO member = new MemberVO();
-		member.setMemberID("333333");
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void joinMapperTest() throws DuplicateKeyException, SQLException {
+		MemberVO member = new MemberVO() ;
+		member.setMemberID("test11");
 		member.setMemberPW("44444");
 		member.setMemberName("234234");
 		member.setMemberMail("22222");
-		member.setAdminCheck(1);
 		
-		mapper.memberJoin(member);
+		MemberVO member2 = new MemberVO() ;
+		member2.setMemberID(null);
+		member2.setMemberPW("44444");
+		member2.setMemberName("234234");
+		member2.setMemberMail("22222");
 		
-		
+		service.memberJoin(member);
+		service.memberJoin(member2);	
 	}
-	*/
+	
 	
 	/*
 	//아이디 중복 테스트
@@ -53,7 +66,7 @@ public class MemberMapperTest {
 		
 	}
 	*/
-	
+	/*
 	//로그인 기능 테스트
 	@Test
 	public void memberLoginTest() {
@@ -65,6 +78,7 @@ public class MemberMapperTest {
 		
 		System.out.println("결과: "+mapper.memberLogin(member));
 	}
+	*/
 	
 
 	

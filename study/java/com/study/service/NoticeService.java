@@ -9,7 +9,8 @@ import com.study.vo.Criteria;
 /**
  * 공지게시판의 게시물 등록, 조회, 수정, 삭제 등과 관련된 비즈니스 로직을 처리하는
  * 인터페이스입니다.
- * @author airpo
+ * 
+ * @author ydshim
  *
  */
 public interface NoticeService {

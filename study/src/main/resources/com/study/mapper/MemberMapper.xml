@@ -34,17 +34,5 @@
   	WHERE MEMBER_ID = #{memberID}
   	AND MEMBER_PW = #{memberPW}
   </select>
-  <!--  
-  <insert id="authRandomNumber">
-  	INSERT INTO authentication(mailAuth)
-  	VALUES(#{mailCheckNumber})
-  </insert>
-  
-  <select id="mailAuthInquire" resultType="int">
-		SELECT mailAuth
-		FROM authentication
-		WHERE mailAuth=#{mailAuth}
-	</select>
-	-->
   
   </mapper>

@@ -1,12 +1,17 @@
 package com.study.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 페이징 처리에서 페이지 번호를 표시하기 위한 정보를 담고있는 DTO클래스입니다.
  * 
  * 
- * @author airpo
+ * @author ydshim
  *
  */
+@Getter
+@Setter
 public class PageMakeDTO {
 	
 	/**
@@ -98,63 +103,4 @@ public class PageMakeDTO {
 		 */
 		this.next = this.endPage<realEnd;
 	}
-
-	public int getStartPage() {
-		return startPage;
-	}
-
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
-
-	public int getEndPage() {
-		return endPage;
-	}
-
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
-	}
-
-	public boolean isPrev() {
-		return prev;
-	}
-
-	public void setPrev(boolean prev) {
-		this.prev = prev;
-	}
-
-	public boolean isNext() {
-		return next;
-	}
-
-	public void setNext(boolean next) {
-		this.next = next;
-	}
-
-	
-
-	public int getBoardTotal() {
-		return boardTotal;
-	}
-
-	public void setBoardTotal(int boardTotal) {
-		this.boardTotal = boardTotal;
-	}
-
-	public Criteria getCri() {
-		return cri;
-	}
-
-	public void setCri(Criteria cri) {
-		this.cri = cri;
-	}
-
-	public int getRealEnd() {
-		return realEnd;
-	}
-
-	public void setRealEnd(int realEnd) {
-		this.realEnd = realEnd;
-	}
-	
 }

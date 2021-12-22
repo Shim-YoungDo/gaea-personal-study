@@ -9,7 +9,7 @@ import com.study.vo.MemberVO;
  * Mapper 인터페이스입니다.
  * 
  * 
- * @author airpo
+ * @author ydshim
  *
  */
 @Mapper

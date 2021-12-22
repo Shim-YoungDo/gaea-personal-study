@@ -4,7 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.study.mapper.MemberMapper;
 import com.study.vo.MemberVO;
@@ -12,7 +15,8 @@ import com.study.vo.MemberVO;
 /**
  * 회원관리(회원가입, 로그인)와 관련된 비즈니스 로직을 처리하는
  * 구현체입니다.
- * @author airpo
+ * 
+ * @author ydshim
  *
  */
 @Service
@@ -33,13 +37,14 @@ public class MemberServiceImpl implements MemberService {
 	 * 회원가입을 수행하는 구현체 method
 	 */
 	@Override
-	public void memberJoin(MemberVO member)  {
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void memberJoin(MemberVO member) {
 		
 		try{
 			mapper.memberJoin(member);
 	
-		}catch(DataAccessException e) {
-			log.info("[Member Join Mapping] error : {}", e);
+		}catch(DataAccessException joinException) {
+			log.info("[notice Join Mapping] error : ", joinException.getRootCause());
 		}
 	}
 	

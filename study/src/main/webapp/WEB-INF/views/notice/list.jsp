@@ -269,7 +269,7 @@
 			//pageForm.find("input[name]='amount'").val(amount);
 			//pageForm.submit();
 			moveForm.find("input[name='amount']").val(amount);
-			moveForm.find("input[name='pageNum']").val(1);
+			moveForm.find("input[name='pageNum']").val(${num});
 			moveForm.submit();
 			
 			console.log("결과:" +value);
@@ -285,9 +285,6 @@
 			moveForm.attr("action", "/notice/list");
 			moveForm.submit();
 		});
-		
-		
-		
 		
 		/*
 		$(".page_count_area button").on("click"function(){

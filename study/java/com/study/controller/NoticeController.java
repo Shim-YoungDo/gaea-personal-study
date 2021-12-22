@@ -19,7 +19,7 @@ import com.study.vo.PageMakeDTO;
 /**
  * 공지게시판의 게시글 등록, 조회, 수정, 삭제 등의 요청을 view단에서 받아 하위 레이어(service)로 
  * 넘겨주는 역할을 하는 컨트롤러입니다.
- * @author airpo
+ * @author ydshim
  *
  */
 @Controller
@@ -75,7 +75,7 @@ public class NoticeController {
 	 */
 	@RequestMapping(value="/notice/registeView", method=RequestMethod.POST)
 	public String registerView(Model model, Criteria cri) {
-		//log.info("게시판 등록페이지 진입");
+		
 		model.addAttribute("cri", cri);
 		return "/notice/registeView";
 	}
@@ -87,6 +87,7 @@ public class NoticeController {
 	 */
 	@RequestMapping(value="/notice/register", method=RequestMethod.POST)
 	public String noticeRegister(CafeNoticeVO notice) {
+		
 		log.info("[/notice/register] PARAM notice : {}  ", notice.toString());
 		service.noticeRegister(notice);
 		return "redirect:/notice/list";
@@ -101,6 +102,7 @@ public class NoticeController {
 	 */
 	@RequestMapping(value="/notice/getPage", method=RequestMethod.POST)
 	public String noticeInquire(int noticeNumber, Model model, Criteria cri) {
+		
 		log.info("[/notice/getPage] PARAM noticeNumber : {}  ", noticeNumber);
 		
 		/**
@@ -122,6 +124,7 @@ public class NoticeController {
 	 */
 	@RequestMapping(value="/notice/modifyView", method=RequestMethod.POST)
 	public String modifyView(int noticeNumber, Model model, Criteria cri) {
+		
 		log.info("[/notice/modifyView] PARAM noticeNumber : {} : ", noticeNumber);
 		
 		/**

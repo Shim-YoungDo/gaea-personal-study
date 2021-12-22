@@ -2,12 +2,15 @@ package com.study.service;
 
 import java.sql.SQLException;
 
+import org.springframework.dao.DuplicateKeyException;
+
 import com.study.vo.MemberVO;
 
 /**
  * 회원관리(회원가입, 로그인)와 관련된 비즈니스 로직을 처리하는
  * 인터페이스입니다.
- * @author airpo
+ * 
+ * @author ydshim
  *
  */
 public interface MemberService {
