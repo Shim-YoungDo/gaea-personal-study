@@ -18,8 +18,9 @@ public interface MemberService {
 	/**
 	 * 회원가입을 수행하는 method
 	 * @param member 회원정보 처리를 위한 정보의 값들이 저장되어 있는 VO
+	 * @return 
 	 */
-	public void memberJoin(MemberVO member);
+	public String memberJoin(MemberVO member);
 	
 	/**
 	 * 아이디 중복 체크 판단을 수행하는 method

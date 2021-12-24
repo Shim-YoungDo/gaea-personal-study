@@ -34,23 +34,23 @@
 		SELECT NOTICE_SEQUENCE.NEXTVAL FROM DUAL
 		</selectKey> 
 		INSERT INTO NOTICE(NOTICE_SERIAL_NUMBER
-		, NOTICE_TITLE
-		, NOTICE_CONTENT
-		, MEMBER_ID) 
+			, NOTICE_TITLE
+			, NOTICE_CONTENT
+			, MEMBER_ID) 
 		VALUES(#{noticeNumber}
-		, #{noticeTitle}
-		, #{noticeContent}
-		, #{noticeWriter})
+			, #{noticeTitle}
+			, #{noticeContent}
+			, #{noticeWriter})
 	</insert> 
 	
 	<!-- 게시글 조회 -->
 	<select id="noticeInquire" resultType="com.study.vo.CafeNoticeVO">
 		SELECT NOTICE_SERIAL_NUMBER AS noticeNumber
-		, NOTICE_TITLE AS noticeTitle
-		, NOTICE_CONTENT AS noticeContent
-		, MEMBER_ID AS noticeWriter
-		, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
-		, NOTICE_UPDATE_DATE AS noticeUpdateDate
+			, NOTICE_TITLE AS noticeTitle
+			, NOTICE_CONTENT AS noticeContent
+			, MEMBER_ID AS noticeWriter
+			, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
+			, NOTICE_UPDATE_DATE AS noticeUpdateDate
 		FROM notice
 		WHERE NOTICE_SERIAL_NUMBER=#{noticeNumber}
 	</select>
@@ -59,8 +59,8 @@
 	<update id="noticeModify">
 		UPDATE notice 
 		SET NOTICE_TITLE = #{noticeTitle}
-		, NOTICE_CONTENT = #{noticeContent}
-		, NOTICE_UPDATE_DATE = SYSDATE 
+			, NOTICE_CONTENT = #{noticeContent}
+			, NOTICE_UPDATE_DATE = SYSDATE 
 		WHERE NOTICE_SERIAL_NUMBER = #{noticeNumber}
 	</update>
 	
@@ -73,28 +73,28 @@
 	<select id="getNoticePagingList" resultType="com.study.vo.CafeNoticeVO">
 	<![CDATA[
 		SELECT 
-		 noticeNumber
-		, noticeTitle
-		, noticeContent
-		, noticeWriter
-		, noticeRegistrationDate
-		, noticeUpdateDate
+			 noticeNumber
+			, noticeTitle
+			, noticeContent
+			, noticeWriter
+			, noticeRegistrationDate
+			, noticeUpdateDate
 		FROM(SELECT /*+INDEX_DESC(NOTICE PK_NOTICE) */ rownum as rn
-		, NOTICE_SERIAL_NUMBER AS noticeNumber
-		, NOTICE_TITLE AS noticeTitle
-		, NOTICE_CONTENT AS noticeContent
-		, MEMBER_ID AS noticeWriter
-		, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
-		, NOTICE_UPDATE_DATE AS noticeUpdateDate
+			, NOTICE_SERIAL_NUMBER AS noticeNumber
+			, NOTICE_TITLE AS noticeTitle
+			, NOTICE_CONTENT AS noticeContent
+			, MEMBER_ID AS noticeWriter
+			, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
+			, NOTICE_UPDATE_DATE AS noticeUpdateDate
 		FROM NOTICE
-		WHERE rownum <=#{pageNum} * #{amount}
 	]]>
 		<if test="keyword!=null">
 			<include refid="criteria"></include>
 		</if>
 	<![CDATA[
 			)
-		WHERE rn > (#{pageNum} - 1) * #{amount}
+		WHERE rownum <=  #{amount}
+		AND rn > (#{pageNum} - 1) * #{amount}
 	]]>
 	</select>
 	

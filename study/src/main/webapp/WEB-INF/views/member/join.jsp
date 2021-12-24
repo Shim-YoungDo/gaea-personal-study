@@ -146,7 +146,7 @@ $(document).ready(function(){
 		}		
 		
 		/* 최종 유효성 검사 */
-		if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck){
+		if(idCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck){
 			$("#join_form").attr("action", "/member/join");
 			$("#join_form").submit();			
 			

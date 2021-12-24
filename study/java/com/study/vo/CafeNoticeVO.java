@@ -2,6 +2,9 @@ package com.study.vo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -43,10 +46,12 @@ public class CafeNoticeVO {
 	/**
 	 * 게시물 등록날짜
 	 */
+	@JsonFormat(shape = Shape.STRING)
 	private Date noticeRegistrationDate;
 	
 	/*
 	 * 게시물 수정날짜
 	 */
+	@JsonFormat(shape = Shape.STRING)
 	private Date noticeUpdateDate;
 }

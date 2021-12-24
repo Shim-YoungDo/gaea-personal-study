@@ -41,6 +41,8 @@ public class NoticeController {
 		log.info("[/notice/list] PARAM pagenum : {}", cri.getPageNum());
 		
 		log.info("[/notice/list] PARAM amount : {}", cri.getAmount()); 
+		
+		CafeNoticeVO vo = new CafeNoticeVO();
 
 		/**
 		 * 현재 페이지, 한 페이지 당 게시글 수 정보를 담아 게시글 리스트를 조회 후 list에 담아
@@ -49,6 +51,8 @@ public class NoticeController {
 //		List<Map<String, Object>> pageList = service.getNoticePagingList(cri);
 		model.addAttribute("list", service.getNoticePagingList(cri));
 		log.info("[/notice/list] PARAM cri : {}, list: {}", cri.toString(), service.getNoticePagingList(cri)); 
+		
+		log.info("[/notice/list] PARAM vo list : {}", vo.toString()); 
 		
 		/**
 		 * 총 게시글 갯수

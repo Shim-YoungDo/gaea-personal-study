@@ -37,15 +37,18 @@ public class MemberServiceImpl implements MemberService {
 	 * 회원가입을 수행하는 구현체 method
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public void memberJoin(MemberVO member) {
+//	@Transactional(propagation=Propagation.REQUIRED)
+	public String memberJoin(MemberVO member) {
 		
+		String result = "fail";
 		try{
 			mapper.memberJoin(member);
+			result = "success";
 	
 		}catch(DataAccessException joinException) {
-			log.info("[notice Join Mapping] error : ", joinException.getRootCause());
+			log.info("[notice Join Mapping] error : "+ joinException.getRootCause());
 		}
+		return result;
 	}
 	
 	/**

@@ -9,13 +9,13 @@
   <!-- 회원가입 -->
   <insert id="memberJoin">
   	INSERT INTO MEMBER(MEMBER_ID
-  	, MEMBER_PW
-  	, MEMBER_NAME
-  	, MEMBER_MAIL)
+  		, MEMBER_PW
+  		, MEMBER_NAME
+  		, MEMBER_MAIL)
   	VALUES(#{memberID}
-  	, #{memberPW}
-  	, #{memberName}
-  	, #{memberMail})
+  		, #{memberPW}
+  		, #{memberName}
+  		, #{memberMail})
   </insert>
   
   <!-- 아이디 중복 체크 -->
@@ -28,8 +28,8 @@
   <!-- 로그인 -->
   <select id="memberLogin" resultType="com.study.vo.MemberVO">
   	SELECT MEMBER_ID AS memberID
-  	, MEMBER_PW AS memberPW
-  	, MEMBER_NAME AS memberName
+  		, MEMBER_PW AS memberPW
+  		, MEMBER_NAME AS memberName
   	FROM member
   	WHERE MEMBER_ID = #{memberID}
   	AND MEMBER_PW = #{memberPW}
