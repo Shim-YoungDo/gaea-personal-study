@@ -15,7 +15,7 @@
 <body>
 	<div class="table_wrap">
 		<a href="javascript:void(0)" onClick="javascript:registeView()" class="enroll_btn">글쓰기</a>
-		<a href="/notice/list" class="list_btn">목록</a>
+		<a href="/notice/jsonlist" class="list_btn">목록</a>
 		<div class="login_area">
 		<!-- 로그인 x -->
 		<c:if test="${member==null}">
@@ -149,7 +149,7 @@
 	<script>
 		let moveForm = $("#moveForm");
 		let pageForm = $("#pageForm");
-	
+		
 		function joinView(){
 		    let f = document.createElement('form');
 		    f.setAttribute('method', 'post');
@@ -282,7 +282,7 @@
 			let pageNum = $(".page_select_area [name='pageSelect']").val();
 			
 			moveForm.find("input[name='pageNum']").val(pageNum);
-			moveForm.attr("action", "/notice/list");
+			moveForm.attr("action", "/notice/jsonlist");
 			moveForm.submit();
 		});
 		

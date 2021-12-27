@@ -69,6 +69,8 @@ public class NoticeController {
 		 * 페이지 정보 pageMake라는 이름으로 model객체에 담아 view로 전달
 		 */
 		model.addAttribute("pageMake", pageMake);
+		
+		log.info("[/notice/list] PARAM model list : {}", model); 
 	}
 	
 	/**

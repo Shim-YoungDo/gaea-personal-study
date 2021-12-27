@@ -20,6 +20,7 @@ import com.study.vo.MemberVO;
  *
  */
 @Service
+@Transactional(propagation=Propagation.REQUIRED)
 public class MemberServiceImpl implements MemberService {
 	
 	private static final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);

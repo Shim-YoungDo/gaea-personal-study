@@ -18,6 +18,7 @@ import com.study.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@Transactional(propagation=Propagation.REQUIRED)
 public class MemberMapperTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(MemberMapperTest.class);
@@ -30,10 +31,10 @@ public class MemberMapperTest {
 	
 	//회원가입 테스트
 	@Test
-	@Transactional(propagation=Propagation.REQUIRED)
+//	@Transactional(propagation=Propagation.REQUIRED)
 	public void joinMapperTest() throws DuplicateKeyException, SQLException {
 		MemberVO member = new MemberVO() ;
-		member.setMemberID("test11");
+		member.setMemberID("test5");
 		member.setMemberPW("44444");
 		member.setMemberName("234234");
 		member.setMemberMail("22222");

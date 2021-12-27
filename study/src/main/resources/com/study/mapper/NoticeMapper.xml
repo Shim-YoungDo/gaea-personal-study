@@ -8,7 +8,7 @@
   
   <!-- 검색 조건문 -->
   <sql id="criteria">
-  	<trim prefix="AND (" suffix=")" prefixOverrides="OR">
+  	<trim prefix="WHERE (" suffix=")" prefixOverrides="OR">
             <foreach collection="typeArr" item="type">
                 <trim prefix="OR">
                     <choose>
@@ -103,9 +103,6 @@
 	<select id="getNoticeTotal" resultType="int">
 		SELECT COUNT(NOTICE_SERIAL_NUMBER) 
 		FROM notice
-		<if test="keyword != null">
-			WHERE NOTICE_SERIAL_NUMBER > 0<include refid="criteria"></include>
-		</if>
 	</select>
  
   </mapper>
