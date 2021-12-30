@@ -39,4 +39,6 @@ public interface MemberMapper {
 //	
 //	
 //	public int mailAuthInquire(int mailCheck);
+	
+	public void memberDelete(String memberID);
 }

@@ -35,4 +35,10 @@
   	AND MEMBER_PW = #{memberPW}
   </select>
   
+  
+  <delete id="memberDelete">
+	DELETE FROM member
+	WHERE MEMBER_ID = #{memberID}
+  </delete>
+  
   </mapper>

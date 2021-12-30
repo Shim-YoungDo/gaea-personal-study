@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.study.service.MemberService;
+import com.study.service.transaction.MemberTransactionService;
 import com.study.vo.MemberVO;
 
 /**
@@ -29,6 +30,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MemberTransactionService transactionService;
 
 	/**
 	 * 회원가입 페이지 화면으로 이동하는 method
@@ -54,7 +58,7 @@ public class MemberController {
 		/**
 		 * member 객체를 담아 회원가입에 해당하는 서비스계층으로 전달.
 		 */
-		memberService.memberJoin(member);
+		transactionService.memberJoin(member);
 		log.info("[/member/join] PARAM member : {}", member.toString());
 		return "redirect:/notice/list";
 	}

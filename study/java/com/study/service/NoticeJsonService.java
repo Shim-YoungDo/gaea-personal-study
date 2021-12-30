@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.study.vo.CafeNoticeVO;
 import com.study.vo.Criteria;
 
@@ -12,6 +13,7 @@ public interface NoticeJsonService {
 	/**
 	 * 페이징 적용된 게시글 목록을 가져오는 method
 	 * @param cri 현재 페이지와 페이지 당 게시글 수 정보를 담고있음
+	 * @return 
 	 */
 	public List<CafeNoticeVO> getNoticePagingList(Criteria cri);
 	
@@ -26,6 +28,6 @@ public interface NoticeJsonService {
 	 * 
 	 * @param cri 현재 페이지와 페이지 당 게시글 수 정보를 담고있음
 	 */
-	public JSONObject jsonList(Criteria cri);
+	public JSONObject noticeListJson(Criteria cri);
 
 }

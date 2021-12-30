@@ -20,7 +20,7 @@ import com.study.vo.MemberVO;
  *
  */
 @Service
-@Transactional(propagation=Propagation.REQUIRED)
+//@Transactional(propagation=Propagation.REQUIRED)
 public class MemberServiceImpl implements MemberService {
 	
 	private static final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
@@ -39,17 +39,30 @@ public class MemberServiceImpl implements MemberService {
 	 */
 	@Override
 //	@Transactional(propagation=Propagation.REQUIRED)
-	public String memberJoin(MemberVO member) {
+	public void memberJoin(MemberVO member) {
 		
-		String result = "fail";
-		try{
-			mapper.memberJoin(member);
-			result = "success";
-	
-		}catch(DataAccessException joinException) {
-			log.info("[notice Join Mapping] error : "+ joinException.getRootCause());
-		}
-		return result;
+		
+//		String result = "fail";
+//		try{	
+//			mapper.memberJoin(member);
+//			result = "success";
+//	
+//		}catch(DataAccessException joinException) {
+//			log.info("[notice Join Mapping] error : "+ joinException.getRootCause());
+//		}
+//		return result;
+		
+		
+		
+		MemberVO memberTxTest = new MemberVO();
+		
+		memberTxTest.setMemberID("test123");
+		memberTxTest.setMemberPW("222");
+		memberTxTest.setMemberName("dfdf");
+		memberTxTest.setMemberMail("9999");
+		
+		mapper.memberJoin(member);
+		mapper.memberJoin(memberTxTest);
 	}
 	
 	/**
@@ -71,5 +84,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO memberLogin(MemberVO member){
 		return mapper.memberLogin(member);
+	}
+	
+	
+	
+	@Override
+	public void memberDelete(String memberID) {
+		mapper.memberDelete(memberID);
 	}
 }

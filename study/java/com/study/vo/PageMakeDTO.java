@@ -2,6 +2,7 @@ package com.study.vo;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 페이징 처리에서 페이지 번호를 표시하기 위한 정보를 담고있는 DTO클래스입니다.
@@ -12,6 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString
 public class PageMakeDTO {
 	
 	/**
