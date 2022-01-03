@@ -114,7 +114,7 @@
 				
 					<!-- 각 번호 페이지 버튼 -->
 					<c:forEach var="num" begin="${pageMake.startPage}" end="${pageMake.endPage}">
-						<li class="pageInfo_btn ${pageMake.cri.pageNum == num ? "active":"" }"><a href="${num}">${num}</a></li>
+						<li class="pageInfo_btn "><a href="${num}">${num}</a></li>
 					</c:forEach>
 					
 					<!--  
@@ -141,14 +141,14 @@
 			<input type="hidden" name="amount" value="${pageMake.cri.amount}">
 			<input type="hidden" name="keyword" value="${pageMake.cri.keyword}">
 			<input type="hidden" name="type" value="${pageMake.cri.type}">
-			
 		</form>
 	</div>
 </div>
 
 	<script>
 		let moveForm = $("#moveForm");
-		let pageForm = $("#pageForm");
+		//console.log(${list});
+
 		
 		function joinView(){
 		    let f = document.createElement('form');

@@ -48,7 +48,7 @@ public class NoticeJsonController {
 		PageMakeDTO pageMake = new PageMakeDTO(cri, noticeTotal);
 	
 		HashMap<String, Object> noticeTotalList = new HashMap<>();
-		Map<String, Object> noticePage = new HashMap<>();
+		HashMap<String, Object> noticePage = new HashMap<>();
 	
 		noticeTotalList.put("list", noticeService.getNoticePagingList(cri));
 		noticePage.put("pageMake", pageMake);
@@ -57,7 +57,8 @@ public class NoticeJsonController {
 		jsonObject.putAll(noticeTotalList);
 		jsonObject.putAll(noticePage);
 		
-		log.info("[/notice/jsonlist] PARAM hashmap : "+ noticeTotalList);		
+		log.info("[/notice/jsonlist] PARAM noticeTotalList : "+ noticeTotalList);		
+		log.info("[/notice/jsonlist] PARAM noticePage : "+ noticePage);		
 		
 
 //		json.putAll(noticePage);
