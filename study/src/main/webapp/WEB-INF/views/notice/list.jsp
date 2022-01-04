@@ -191,6 +191,7 @@
 			moveForm.submit();
 				});
 		
+		
 		$(".pageInfo a").on("click", function(e){
 			e.preventDefault();
 			moveForm.find("input[name='pageNum']").val($(this).attr("href")); //<form>내부 pageNum과 관련된 <input>태그의 value 속성값에 클릭한<a>태그 페이지 번호 삽입

@@ -38,20 +38,13 @@ public class MemberServiceTestImpl {
 		member.setMemberName("234234");
 		member.setMemberMail("22222");
 		
-		MemberVO member2 = new MemberVO() ;
-		member2.setMemberID("test123");
-		member2.setMemberPW("44444");
-		member2.setMemberName("234234");
-		member2.setMemberMail("22222");
-		
 		service.memberJoin(member);
-		service.memberJoin(member2);
 		
 		int result = service.idCheck(member.getMemberID());
 		if(result == 1) {
 			String joinResult = "join success";
 			System.out.printf("result:", joinResult);
-//			service.memberDelete(member.getMemberID());
+			service.memberDelete(member.getMemberID());
 		}
 		else {
 			String joinResult = "join fail";

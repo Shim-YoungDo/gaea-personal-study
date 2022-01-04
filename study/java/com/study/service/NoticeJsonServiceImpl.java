@@ -47,8 +47,8 @@ public class NoticeJsonServiceImpl implements NoticeJsonService {
 		int noticeTotal = getNoticeTotal(cri);
 		PageMakeDTO pageMake = new PageMakeDTO(cri, noticeTotal);
 		
-		Map<String, List<CafeNoticeVO>> noticeTotalList = new HashMap<>();
-		Map<String, PageMakeDTO> noticePage = new HashMap<>();
+		HashMap<String, Object> noticeTotalList = new HashMap<>();
+		HashMap<String, Object> noticePage = new HashMap<>();
 
 		noticeTotalList.put("list", getNoticePagingList(cri));
 		noticePage.put("pageMake", pageMake);

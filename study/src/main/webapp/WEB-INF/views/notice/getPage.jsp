@@ -61,7 +61,7 @@
 	
 	$("#list_button").on("click", function(e){
 		form.find("#noticeNumber").remove();
-		form.attr("action", "/notice/list");
+		form.attr("action", "/notice/callList");
 		form.submit();
 	});
 	

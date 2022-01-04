@@ -79,7 +79,9 @@
 	<!-- @Transactional 어노테이션 처리 -->
 	<tx:annotation-driven
 		transaction-manager="transactionManager" />
-
+		
+	<!-- batch -->
+	
 
 	<mybatis-spring:scan
 		base-package="com.study.mapper" />
