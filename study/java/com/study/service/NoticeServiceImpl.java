@@ -90,6 +90,8 @@ public class NoticeServiceImpl implements NoticeService {
 	 */
 	@Override
 	public List<CafeNoticeVO> getNoticePagingList(Criteria cri) {
+		
+		
 		return mapper.getNoticePagingList(cri);
 	}
 
@@ -102,5 +104,10 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int getNoticeTotal(Criteria cri) {
 		return mapper.getNoticeTotal(cri);
+	}
+	
+	@Override
+	public List<CafeNoticeVO> noticeRegistDate(){
+		return mapper.noticeRegistDate();
 	}
 }

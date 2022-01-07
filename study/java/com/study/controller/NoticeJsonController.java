@@ -16,6 +16,11 @@ import com.study.service.NoticeService;
 import com.study.vo.Criteria;
 import com.study.vo.PageMakeDTO;
 
+/**
+ * 공지게시판의 전체 게시글 조회를 json으로 처리한 컨트롤러입니다.
+ * @author ydshim
+ *
+ */
 @Controller
 @RequestMapping("/")
 public class NoticeJsonController {
@@ -28,9 +33,14 @@ public class NoticeJsonController {
 	@Autowired
 	private NoticeService noticeService;
 
-	@RequestMapping(value = "/notice/jsonlist", method = RequestMethod.GET)
+	/**
+	 * 공지 게시글 전체 리스트 데이터를 json형태로 변경해 전송해주는 method
+	 * @param cri 현재 페이지와 페이지 당 게시글 수 정보를 담고있음
+	 * @return json형태로 변환한 공지 게시글 전체 리스트 데이터 view로 반환
+	 */
+	@RequestMapping(value = "/notice/jsonlist", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> noticeListJson(Criteria cri) {
+	public HashMap<String, Object> noticeTotalListConvertJson(Criteria cri) {
 //		CafeNoticeVO notice = new CafeNoticeVO();
 
 		/**
@@ -49,26 +59,29 @@ public class NoticeJsonController {
 		noticeTotalList.put("list", noticeService.getNoticePagingList(cri));
 		noticePage.put("pageMake", pageMake);
 
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.putAll(noticeTotalList);
-		jsonObject.putAll(noticePage);
+		JSONObject convertJson = new JSONObject();
+		convertJson.putAll(noticeTotalList);
+		convertJson.putAll(noticePage);
 
 		log.info("[/notice/jsonlist] PARAM noticeTotalList : " + noticeTotalList);
 		log.info("[/notice/jsonlist] PARAM noticePage : " + noticePage);
-		log.info("[/notice/jsonlist] PARAM cri : " + cri);
+		log.info("[/notice/jsonlist] PARAM JSON : " + convertJson.toJSONString());
 
-//		json.putAll(noticePage);
-
-//		return noticeTotalList;
-
-		return jsonObject;
+		return convertJson;
 	}
 
-	@RequestMapping(value = "/notice/callList", method = RequestMethod.GET)
-	public String callList(Criteria cri, Model model) {
+	/**
+	 * view에서 넘어온 페이지 데이터를 받아 다시 view로 반환하는
+	 * 역할을 하는 method
+	 * @param cri 현재 페이지와 페이지 당 게시글 수 정보를 담고있음
+	 * @param model view에 데이터를 전달하기 위한 객체
+	 * @return 공지 게시글 전체 리스트 데이터를 json형태로 변경해주는 method 호출
+	 */
+	@RequestMapping(value = "/notice/totalList", method = RequestMethod.GET)
+	public String noticeChangePageNumber(Criteria cri, Model model) {
 		// PageMakeDTO pageMake = new PageMakeDTO(cri, noticeTotal);
 
-		log.info("[/notice/callList] PARAM noticePage : " + cri);
+		log.info("[/notice/totalList] PARAM noticePage : " + cri);
 		 model.addAttribute("pageNum",cri.getPageNum());
 		 model.addAttribute("amount",cri.getAmount());
 		return "/notice/jsonlist";

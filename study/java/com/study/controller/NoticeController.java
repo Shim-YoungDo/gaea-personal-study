@@ -45,18 +45,22 @@ public class NoticeController {
 		log.info("[/notice/list] PARAM pagenum : {}", cri.getPageNum());
 		
 		log.info("[/notice/list] PARAM amount : {}", cri.getAmount()); 
-		
-		CafeNoticeVO vo = new CafeNoticeVO();
+//		log.info("[/notice/list] PARAM vo notice title : {}", notice);
 
 		/**
 		 * 현재 페이지, 한 페이지 당 게시글 수 정보를 담아 게시글 리스트를 조회 후 list에 담아
 		 * view에 전달
 		 */
+		List<CafeNoticeVO> notice = service.getNoticePagingList(cri);
 //		List<Map<String, Object>> pageList = service.getNoticePagingList(cri);
-		model.addAttribute("list", service.getNoticePagingList(cri));
-		log.info("[/notice/list] PARAM cri : {}, list: {}", cri.toString(), service.getNoticePagingList(cri)); 
+		log.info("[/notice/list] PARAM vo notice : {}", notice);
+		model.addAttribute("list", notice);
 		
-		log.info("[/notice/list] PARAM vo list : {}", vo.toString()); 
+//		model.addAttribute("list", service.getNoticePagingList(cri));
+		
+		
+//		model.addAttribute("list", service.getList());
+		log.info("[/notice/list] PARAM cri : {}, list: {}", cri.toString(), service.getNoticePagingList(cri));  
 		
 		/**
 		 * 총 게시글 갯수
@@ -111,17 +115,18 @@ public class NoticeController {
 	 * @return 게시글 상세조회 페이지로 이동
 	 */
 	@RequestMapping(value="/notice/getPage", method=RequestMethod.POST)
-	public String noticeInquire(int noticeNumber, Model model, Criteria cri) {
+	public String noticeInquire(int noticeNumber, Model model, Criteria cri, CafeNoticeVO notice) {
 		
-		log.info("[/notice/getPage] PARAM noticeNumber : {}  ", noticeNumber);
+		log.info("[/notice/getPage] PARAM noticeNumber :  "+ noticeNumber);
 		
 		/**
 		 * 게시글 고유 식별 번호를 이용해 해당되는 게시글 정보를 pageInfo에 담아
 		 * view로 전달
 		 */
 		model.addAttribute("pageInfo", service.noticeInquired(noticeNumber));
-		
+		log.info("[/notice/list] PARAM model title : {}", model);
 		model.addAttribute("cri", cri);
+		log.info("[/notice/getPage] PARAM vo noticeContent: {}  ", notice.getNoticeContent());
 		return "/notice/getPage";
 	}
 	

@@ -54,4 +54,7 @@ public interface NoticeMapper {
 	 * @param cri 현재 페이지와 페이지 당 게시글 수 정보를 담고있음
 	 */
 	public int getNoticeTotal(Criteria cri);
+	
+	public List<CafeNoticeVO> noticeRegistDate();
+	
 }

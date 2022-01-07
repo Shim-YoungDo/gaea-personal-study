@@ -1,9 +1,11 @@
 package com.study.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.dao.DuplicateKeyException;
 
+import com.study.vo.CafeNoticeVO;
 import com.study.vo.MemberVO;
 
 /**

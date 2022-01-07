@@ -65,28 +65,33 @@
 	</update>
 	
 	<!-- 게시글 삭제 -->
-	<delete id="noticeDelete">
-		DELETE FROM notice
+	<update id="noticeDelete">
+		UPDATE notice
+		SET NOTICE_DELETE_CHECK = 'Y'
+			, NOTICE_DELETE_DATE = SYSDATE
 		WHERE NOTICE_SERIAL_NUMBER = #{noticeNumber}
-	</delete>
+	</update>
 	
 	<select id="getNoticePagingList" resultType="com.study.vo.CafeNoticeVO">
 	<![CDATA[
 		SELECT 
 			 noticeNumber
-			, noticeTitle
+			, NOTICE_TITLE
 			, noticeContent
 			, noticeWriter
 			, noticeRegistrationDate
 			, noticeUpdateDate
+			, noticeDeleteCheck
 		FROM(SELECT /*+INDEX_DESC(NOTICE PK_NOTICE) */ rownum as rn
 			, NOTICE_SERIAL_NUMBER AS noticeNumber
-			, NOTICE_TITLE AS noticeTitle
+			, NOTICE_TITLE
 			, NOTICE_CONTENT AS noticeContent
 			, MEMBER_ID AS noticeWriter
 			, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
 			, NOTICE_UPDATE_DATE AS noticeUpdateDate
+			, NOTICE_DELETE_CHECK AS noticeDeleteCheck
 		FROM NOTICE
+		WHERE NOTICE_DELETE_CHECK = 'N'
 	]]>
 		<if test="keyword!=null">
 			<include refid="criteria"></include>
@@ -103,6 +108,31 @@
 	<select id="getNoticeTotal" resultType="int">
 		SELECT COUNT(NOTICE_SERIAL_NUMBER) 
 		FROM notice
+		WHERE NOTICE_DELETE_CHECK = 'N'
+	</select>
+	
+	<select id="getList" resultType="com.study.vo.CafeNoticeVO">
+		SELECT 
+			 NOTICE_SERIAL_NUMBER AS noticeNumber
+			, NOTICE_TITLE
+			, NOTICE_CONTENT
+			, MEMBER_ID AS noticeWriter
+			, NOTICE_REGISTRATION_DATE
+			, NOTICE_UPDATE_DATE
+		FROM notice
+	</select>
+	
+	<select id="noticeRegistDate" resultType="com.study.vo.CafeNoticeVO">
+		SELECT NOTICE_SERIAL_NUMBER AS noticeNumber
+			, NOTICE_TITLE AS noticeTitle
+			, NOTICE_CONTENT AS noticeContent
+			, MEMBER_ID AS noticeWriter
+			, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
+			, NOTICE_UPDATE_DATE AS noticeUpdateDate 
+		FROM notice 
+		WHERE TO_CHAR(SYSDATE, 'YYYY/MM/dd') 
+			= TO_CHAR(NOTICE_REGISTRATION_DATE+1, 'YYYY/MM/dd')
+		AND NOTICE_DELETE_CHECK = 'N'
 	</select>
  
   </mapper>

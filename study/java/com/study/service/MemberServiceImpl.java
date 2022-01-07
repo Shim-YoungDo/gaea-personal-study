@@ -1,5 +1,7 @@
 package com.study.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.study.mapper.MemberMapper;
+import com.study.vo.CafeNoticeVO;
 import com.study.vo.MemberVO;
 
 /**
@@ -29,12 +32,6 @@ public class MemberServiceImpl implements MemberService {
 	private MemberMapper mapper;
 	
 	/**
-	 * 메일 발송기능을 지원하는 인터페이스
-	 */
-//	@Autowired
-//	private JavaMailSender mailSender;
-	
-	/**
 	 * 회원가입을 수행하는 구현체 method
 	 */
 	@Override
@@ -48,21 +45,21 @@ public class MemberServiceImpl implements MemberService {
 //			result = "success";
 //	
 //		}catch(DataAccessException joinException) {
-//			log.info("[notice Join Mapping] error : "+ joinException.getRootCause());
+//			log.info("[member Join Mapping] error : "+ joinException.getRootCause());
 //		}
 //		return result;
 		
 		
 		
-		MemberVO memberTxTest = new MemberVO();
-		
-		memberTxTest.setMemberID("test123");
-		memberTxTest.setMemberPW("222");
-		memberTxTest.setMemberName("dfdf");
-		memberTxTest.setMemberMail("9999");
-		
+//		MemberVO cafeMember = new MemberVO();
+//		
+//		cafeMember.setMemberID("test123");
+//		cafeMember.setMemberPW("222");
+//		cafeMember.setMemberName("dfdf");
+//		cafeMember.setMemberMail("9999");
+//		
 		mapper.memberJoin(member);
-		mapper.memberJoin(memberTxTest);
+//		mapper.memberJoin(cafeMember);
 	}
 	
 	/**

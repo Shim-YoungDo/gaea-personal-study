@@ -5,7 +5,9 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch https://www.springframework.org/schema/batch/spring-batch.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
@@ -81,12 +83,57 @@
 		transaction-manager="transactionManager" />
 		
 	<!-- batch -->
+	<!--  
+	<batch:job id="noticeDeleteJob">
+        <batch:step id="step01">
+            <batch:tasklet>
+                <batch:chunk reader="cvsItemReader" writer="xmlItemWriter"
+                             processor="itemProcesser" commit-interval="1"/>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
 	
+	<bean id="jobRepository"
+        class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+    </bean>
+    
+    <bean id="jobLauncher"
+        class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <property name="jobRepository" ref="jobRepository" />
+    </bean>
+-->
 
+	<!-- Job -->
+	<bean id="Job" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	    <!-- 서비스 구현 객체의 빈 이름을 인자로 줍니다. -->
+	    <property name="targetObject" ref="noticeQuartzJob" />
+	    <!-- 서비스 객체에서 주기적으로 실행될 메소드를 지정합니다. -->
+	    <property name="targetMethod" value="noticeScheduleDelete" />
+	    <!-- 동시 실행을 방지합니다. -->
+	    <property name="concurrent" value="false" />
+	</bean>
+
+	<!-- Trigger -->
+	<bean id="JobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	    <property name="jobDetail" ref="Job" />
+	    <!-- Trigger를 사용하여 매일 오전2시에 실행되도록 지정했습니다. -->
+	    <property name="cronExpression" value="0 0 2 * * ?" />
+	</bean>
+    
+	<!-- Scheduler -->
+	<bean id="JobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+			<!-- 앞에서 설정한 트리거를 등록합니다. 필요하면 여러개 만들어서 등록하면 됩니다. -->
+			<list><ref bean="JobTrigger" /></list>
+	    </property>
+	</bean>
+		
 	<mybatis-spring:scan
 		base-package="com.study.mapper" />
 	<context:component-scan
 		base-package="com.study.vo"></context:component-scan>
 	<context:component-scan
 		base-package="com.study.service"></context:component-scan>
+	<context:component-scan
+		base-package="com.study.util"></context:component-scan>
 </beans>

@@ -23,6 +23,10 @@ import lombok.ToString;
 @ToString
 public class CafeNoticeVO {
 	
+	public CafeNoticeVO(){
+		
+	}
+	
 	/**
 	 * 게시글 고유 식별 번호 [PK]
 	 */
@@ -42,6 +46,11 @@ public class CafeNoticeVO {
 	 * 게시물 작성자
 	 */
 	private String noticeWriter;
+	
+	/**
+	 * 게시글 삭제 여부
+	 */
+	private String noticeDeleteCheck;
 	
 	/**
 	 * 게시물 등록날짜

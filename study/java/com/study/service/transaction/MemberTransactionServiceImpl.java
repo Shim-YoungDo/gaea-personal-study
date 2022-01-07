@@ -9,6 +9,13 @@ import com.study.mapper.MemberMapper;
 import com.study.service.MemberServiceImpl;
 import com.study.vo.MemberVO;
 
+/**
+ * 회원관리(회원가입, 로그인)와 트랜잭션 관련된 비즈니스 로직을 테스트하는
+ * 구현체입니다.
+ * 
+ * @author ydshim
+ *
+ */
 @Service
 public class MemberTransactionServiceImpl implements MemberTransactionService {
 	
@@ -21,15 +28,15 @@ public class MemberTransactionServiceImpl implements MemberTransactionService {
 	@Override
 	public void memberJoin(MemberVO member) {
 		
-		MemberVO memberTxTest = new MemberVO();
+		MemberVO cafeMember = new MemberVO();
 		
-		memberTxTest.setMemberID("test123");
-		memberTxTest.setMemberPW("222");
-		memberTxTest.setMemberName("dfdf");
-		memberTxTest.setMemberMail("9999");
+		cafeMember.setMemberID("test123");
+		cafeMember.setMemberPW("222");
+		cafeMember.setMemberName("dfdf");
+		cafeMember.setMemberMail("9999");
 		
 		mapper.memberJoin(member);
-		mapper.memberJoin(memberTxTest);
+		mapper.memberJoin(cafeMember);
 
 	}
 

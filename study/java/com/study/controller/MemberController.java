@@ -58,16 +58,10 @@ public class MemberController {
 		/**
 		 * member 객체를 담아 회원가입에 해당하는 서비스계층으로 전달.
 		 */
-		transactionService.memberJoin(member);
+		memberService.memberJoin(member);
 		log.info("[/member/join] PARAM member : {}", member.toString());
 		return "redirect:/notice/list";
 	}
-
-	// 유효성검사 함수
-	/*
-	 * static boolean joinNullCheck(String str) { return str == null ||
-	 * str.trim().isEmpty(); //null값일 시 true }
-	 */
 
 	/**
 	 * ID 중복검사를 처리하는 method
