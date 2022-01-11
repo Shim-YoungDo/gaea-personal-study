@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -135,17 +136,17 @@ public class MemberController {
 			redirect.addFlashAttribute("result", result);
 			return "redirect:/member/loginView";
 		}
-		log.info("[/member/login] memeberID param : {}  ", loginMember.getMemberID());
+//		log.info("[/member/login] memeberID param : {}  ", loginMember.getMemberID());
 		
 		String memberID = loginMember.getMemberID();
-		int humanResult = memberService.humanCheck(memberID);
+		int dormancyResult = memberService.dormancyCheck(memberID);
 		log.info("[/member/login] memberID param : {}  ", memberID);
-		log.info("[/member/login] humanResult : {}  ", humanResult);
-		if(humanResult==0) {
-			int memberHumanResult = 0;
+		log.info("[/member/login] humanResult : {}  ", dormancyResult);
+		if(dormancyResult==0) {
+			int memberDormancyResult = 0;
 //			redirect.addFlashAttribute("viewResult", viewResult);
-			session.setAttribute("memberHumanResult", memberHumanResult);
-			session.setAttribute("member", loginMember.getMemberID());
+			session.setAttribute("memberDormancyResult", memberDormancyResult);
+			session.setAttribute("member", memberID);
 			log.info("[/member/login] session param ID : {}  ", session.getAttribute("member"));
 //			return "redirect:/member/loginView";
 			return "redirect:/notice/list";
@@ -176,5 +177,42 @@ public class MemberController {
 
 		return "redirect:/notice/list";
 	}
-
+	
+	/**
+	 * 휴면해제 화면으로 이동하는 method
+	 * @return 휴면해제 화면으로 이동
+	 */
+	@RequestMapping(value = "/member/dormancyView", method=RequestMethod.GET)
+	public String memberDormancyOffView() {
+		return "/member/dormancy";
+	}
+	
+	/**
+	 * 휴면해제 요청을 처리하는 method
+	 * @param member 회원정보 처리를 위한 정보의 값들이 저장되어 있는 VO
+	 * @param request 휴면상태를 session에 저장하기 위해 사용
+	 * @param redirect 사용자 정보가 일치하지 않을 시 정보를 다시 입력하라는 데이터 출력하기 위해 사용
+	 * @return 전체 페이지 리스트로 이동
+	 */
+	@RequestMapping(value = "/member/dormancy", method=RequestMethod.POST)
+	public String memberDoramncyOff(MemberVO member, HttpServletRequest request, RedirectAttributes redirect) {
+		HttpSession session = request.getSession();
+		
+		int result = memberService.infoMatch(member);
+		log.info("[/member/dormancy] result: "+result);
+//		log.info("[/member/dormancy] session param ID : {}  ", session.getAttribute("member"));
+		if(result == 0) {
+			int matchResult = 0;
+			redirect.addFlashAttribute("result", matchResult);
+			return "redirect:/member/dormancyView";
+		}
+		String memberID = member.getMemberID();
+		session.setAttribute("memberDormancyResult", result);
+		log.info("[/member/dormancy] memberID: "+memberID);
+		
+		memberService.memberConvertNormalcy(memberID);
+		log.info("[/member/dormancy] session param ID : {}  ", session.getAttribute("member"));
+		log.info("[/member/dormancy] session param dormancyResult : {}  ", session.getAttribute("memberDormancyResult"));
+		return "redirect:/notice/list";
+	}
 }

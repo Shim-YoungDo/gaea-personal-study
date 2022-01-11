@@ -50,13 +50,13 @@ public class QuartzJobExecutionImpl implements QuartzJobExecution {
 	 * 계정을 휴면계정으로 전환하는 job method
 	 */
 	@Override
-	public void MemberConvertHuman() {
+	public void MemberConvertDormancy() {
 		List<MemberVO> loginDate = memberService.memberLoginDate();
 		logger.info("loginDate VO :"+loginDate);
 		for(int i=0; i<loginDate.size(); i++) {
 			String memberId = loginDate.get(i).getMemberID();
 			logger.info(i+":" +"memberId:"+memberId);
-			memberService.memberConvertHuman(memberId);
+			memberService.memberConvertDormancy(memberId);
 		}
 		logger.info("member job end");
 	}

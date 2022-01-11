@@ -16,7 +16,7 @@
 
 <form id="enroll_form" action="/notice/register" method="post">
 <c:if test="${member != null}">
-	<c:if test="${memberHumanResult != 0}">
+	<c:if test="${memberDormancyResult != 0}">
 		<div class="input_wrap">
 			<label>Title</label>
 			<input class="noticeTitle" name="noticeTitle">
@@ -34,7 +34,7 @@
 		<button class="enroll_button">등록</button>
 	</c:if>
 	<!-- <button class="cancel_button">취소</button>-->
-	<c:if test="${memberHumanResult == 0 }">
+	<c:if test="${memberDormancyResult == 0 }">
 		<p>휴면 상태를 해제해주세요.</p>
 	</c:if>
 	</c:if>

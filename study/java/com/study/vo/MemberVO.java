@@ -43,5 +43,5 @@ public class MemberVO {
 	
 	private Date memberLoginDate;
 	
-	private String memberHuman;
+	private String memberDormancy;
 }

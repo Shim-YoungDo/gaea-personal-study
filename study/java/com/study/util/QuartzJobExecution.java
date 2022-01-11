@@ -10,5 +10,5 @@ public interface QuartzJobExecution{
 	
 	public void noticeScheduleDelete();
 	
-	public void MemberConvertHuman();
+	public void MemberConvertDormancy();
 }

@@ -25,12 +25,27 @@
   	WHERE MEMBER_ID = #{memberID}
   </select>
   
-  <select id="humanCheck" resultType="int">
+  <select id="dormancyCheck" resultType="int">
   	SELECT COUNT(MEMBER_ID)
   	FROM member
   	WHERE MEMBER_ID = #{memberID}
-    AND MEMBER_HUMAN = 'N'
+    AND MEMBER_DORMANCY = 'N'
   </select>
+  
+  <select id="infoMatch" resultType="int">
+  	SELECT COUNT(MEMBER_ID)
+  	FROM member
+  	WHERE MEMBER_ID = #{memberID}
+  	AND MEMBER_PW = #{memberPW}
+  	AND MEMBER_NAME = #{memberName}
+    AND MEMBER_DORMANCY = 'Y'
+  </select>
+  
+  <update id="memberConvertNormalcy">
+  	UPDATE MEMBER
+  		SET MEMBER_DORMANCY = 'N'
+  	WHERE MEMBER_ID = #{memberID}
+  </update>
   
   <!-- 로그인 -->
   <select id="memberLogin" resultType="com.study.vo.MemberVO">
@@ -48,9 +63,9 @@
   	WHERE MEMBER_ID = #{memberID}
   </update>
   
-  <update id="memberConvertHuman">
+  <update id="memberConvertDormancy">
   	UPDATE MEMBER
-  		SET MEMBER_HUMAN = 'Y'
+  		SET MEMBER_DORMANCY = 'Y'
   	WHERE MEMBER_ID = #{memberID}
   </update>
  
@@ -58,12 +73,12 @@
 		SELECT MEMBER_ID AS memberID
   			, MEMBER_PW AS memberPW
   			, MEMBER_NAME AS memberName
-  			, MEMBER_HUMAN AS memberHuman
+  			, MEMBER_DORMANCY AS memberDormancy
 		FROM member 
-		WHERE TO_CHAR(MEMBER_LOGIN_DATE, 'YYYY/MM/dd') IS NULL
+		WHERE (TO_CHAR(MEMBER_LOGIN_DATE, 'YYYY/MM/dd') IS NULL
         OR TO_CHAR(SYSDATE, 'YYYY/MM/dd') 
-			= TO_CHAR(MEMBER_LOGIN_DATE+1, 'YYYY/MM/dd') 
-		AND MEMBER_HUMAN = 'N'
+			= TO_CHAR(MEMBER_LOGIN_DATE+1, 'YYYY/MM/dd'))
+		AND MEMBER_DORMANCY = 'N'
 	</select>
  
   <delete id="memberDelete">

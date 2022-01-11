@@ -94,17 +94,27 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public int humanCheck(String memberID) {
-		return mapper.humanCheck(memberID);
+	public int dormancyCheck(String memberID) {
+		return mapper.dormancyCheck(memberID);
 	}
 	
 	@Override
-	public void memberConvertHuman(String memberID) {
-		mapper.memberConvertHuman(memberID);
+	public void memberConvertDormancy(String memberID) {
+		mapper.memberConvertDormancy(memberID);
 	}
 	
 	@Override
 	public void memberDelete(String memberID) {
 		mapper.memberDelete(memberID);
+	}
+	
+	@Override
+	public int infoMatch(MemberVO member) {
+		return mapper.infoMatch(member);
+	}
+	
+	@Override
+	public void memberConvertNormalcy(String memberID) {
+		mapper.memberConvertNormalcy(memberID);
 	}
 }

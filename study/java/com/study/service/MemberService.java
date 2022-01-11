@@ -39,9 +39,13 @@ public interface MemberService {
 	
 	public List<MemberVO> memberLoginDate ();
 	
-	public int humanCheck(String memberID);
+	public int dormancyCheck(String memberID);
 
-	public void memberConvertHuman(String memberID);
+	public void memberConvertDormancy(String memberID);
 	
 	public void memberDelete(String memberID);
+	
+	public int infoMatch(MemberVO member);
+	
+	public void memberConvertNormalcy(String memberID);
 }

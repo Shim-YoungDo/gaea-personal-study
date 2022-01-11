@@ -27,8 +27,9 @@
 		<div class="login_success_area">
 			<span>아이디:${member}</span>
 			<a href="javascript:void(0)" onClick="javascript:logout()">로그아웃</a>
-			<c:if test="${memberHumanResult == 0 }">
+			<c:if test="${memberDormancyResult == 0 }">
 			<span>이 계정은 휴면상태입니다.</span>
+			<a href="javascript:void(0)" onClick="javascript:dormancyOff()">휴먼 해제</a>
 			</c:if>
 		</div>
 		</c:if>
@@ -181,6 +182,14 @@
 		    let f = document.createElement('form');
 		    f.setAttribute('method', 'post');
 		    f.setAttribute('action', '/notice/registeView');
+		    document.body.appendChild(f);
+		    f.submit();
+		}
+		
+		function dormancyOff(){
+		    let f = document.createElement('form');
+		    f.setAttribute('method', 'get');
+		    f.setAttribute('action', '/member/dormancyView');
 		    document.body.appendChild(f);
 		    f.submit();
 		}

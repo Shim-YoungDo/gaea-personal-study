@@ -36,19 +36,17 @@ public interface MemberMapper {
 	 */
 	public MemberVO memberLogin(MemberVO member);
 	
-//	//난수 저장
-//	public Integer authRandomNumber(int mailCheckNumber);
-//	
-//	
-//	public int mailAuthInquire(int mailCheck);
-	
 	public void memberLoginDateUpdate(String memberID);
 	
 	public List<MemberVO> memberLoginDate ();
 	
-	public int humanCheck(String memberID);
+	public int dormancyCheck(String memberID);
 	
-	public void memberConvertHuman(String memberID);
+	public void memberConvertDormancy(String memberID);
 	
 	public void memberDelete(String memberID);
+	
+	public int infoMatch(MemberVO member);
+	
+	public void memberConvertNormalcy(String memberID);
 }
