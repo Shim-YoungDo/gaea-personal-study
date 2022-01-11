@@ -9,4 +9,6 @@ package com.study.util;
 public interface QuartzJobExecution{
 	
 	public void noticeScheduleDelete();
+	
+	public void MemberConvertHuman();
 }

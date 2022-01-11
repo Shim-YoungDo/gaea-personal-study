@@ -76,7 +76,7 @@
 	<![CDATA[
 		SELECT 
 			 noticeNumber
-			, NOTICE_TITLE
+			, noticeTitle
 			, noticeContent
 			, noticeWriter
 			, noticeRegistrationDate
@@ -84,7 +84,7 @@
 			, noticeDeleteCheck
 		FROM(SELECT /*+INDEX_DESC(NOTICE PK_NOTICE) */ rownum as rn
 			, NOTICE_SERIAL_NUMBER AS noticeNumber
-			, NOTICE_TITLE
+			, NOTICE_TITLE AS noticeTitle
 			, NOTICE_CONTENT AS noticeContent
 			, MEMBER_ID AS noticeWriter
 			, NOTICE_REGISTRATION_DATE AS noticeRegistrationDate
@@ -131,7 +131,7 @@
 			, NOTICE_UPDATE_DATE AS noticeUpdateDate 
 		FROM notice 
 		WHERE TO_CHAR(SYSDATE, 'YYYY/MM/dd') 
-			= TO_CHAR(NOTICE_REGISTRATION_DATE+1, 'YYYY/MM/dd')
+			= TO_CHAR(NOTICE_REGISTRATION_DATE, 'YYYY/MM/dd')
 		AND NOTICE_DELETE_CHECK = 'N'
 	</select>
  

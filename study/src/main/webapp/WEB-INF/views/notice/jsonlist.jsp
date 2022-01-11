@@ -42,7 +42,7 @@ $(document).ready(function(){
 	
 	$.ajax({
 		data:{pageNum:'${pageNum}',amount:'${amount}'},
-		type:'get',
+		type:'post',
 		url:'/notice/jsonlist',
 		dataType:'json',
 		async:false,
@@ -53,7 +53,7 @@ $(document).ready(function(){
 			html = '<tr>';
 		    for (var i = 0; i < data.list.length; i++) {
 		        html += '<tr><td>' + data.list[i].noticeNumber + 
-		        '</td><td>'+'<a class="move" href="javascript:void(0)" data-code="'+ data.list[i].noticeNumber + '">' + data.list[i].noticeTitle+  
+		        '</td><td>'+'<a class="move" href="javascript:void(0)" data-list="'+ data.list[i].noticeNumber + '">' + data.list[i].noticeTitle+  
 		        '</a></td><td>' + data.list[i].noticeWriter + '</td><<td>' + moment(data.list[i].noticeRegistrationDate).format('YYYY MM DD')
 		                + '</td><td>'+ moment(data.list[i].noticeUpdateDate).format('YYYY MM DD') +'</td></tr>';
 		        
@@ -63,13 +63,13 @@ $(document).ready(function(){
 		    html += '</tr>'; 
 		    for(let j=data.pageMake.startPage; j<=data.pageMake.endPage; j++){
 		    	$("#pageInfo").append('<li class="pageInfo_btn">' +
-		    			'<a href="javascript:void(0)" data-code="'+j+'">' +  j + '</a> </li>');
+		    			'<a href="javascript:void(0)" data-page="'+j+'">' +  j + '</a> </li>');
 		    	
 		    	console.log("page:"+j);
 		    	console.log("pageNum:"+data.pageMake.cri.pageNum);
 		    }
 		    
-		    let moveForm = $("#moveForm");
+//		    let moveForm = $("#moveForm");
 	
 // 		    $(".move").on("click", function(e) {
 // 				e.preventDefault();
@@ -89,7 +89,7 @@ $(document).ready(function(){
 	   $(".move").on("click", function(e) {
 			e.preventDefault();
 			moveForm.append("<input type='hidden' name='noticeNumber' value='"
-					+ $(this).data("code")+ "'>"); //<form>내부 noticeNumber값을 저장하는 <input>태그 생성
+					+ $(this).data("list")+ "'>"); //<form>내부 noticeNumber값을 저장하는 <input>태그 생성
 			moveForm.attr("action", "/notice/getPage");
 			moveForm.attr("method", "post");
 			moveForm.submit();
@@ -98,10 +98,10 @@ $(document).ready(function(){
 	   $(".pageInfo a").on("click", function(e){
 	    	e.preventDefault();
 	    	moveForm.append("<input type='hidden' name='pageNum' value='"
-	    			+ $(this).data("code")+ "'>");
+	    			+ $(this).data("page")+ "'>");
 			moveForm.append("<input type='hidden' name='amount' value='10'>");
-			moveForm.find("input[name='pageNum']").val($(this).data("code"));
-			moveForm.attr("action", "/notice/callList");
+			moveForm.find("input[name='pageNum']").val($(this).data("page"));
+			moveForm.attr("action", "/notice/totalList");
 			moveForm.submit();
 		});
 	    

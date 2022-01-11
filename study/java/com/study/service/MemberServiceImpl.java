@@ -83,7 +83,25 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.memberLogin(member);
 	}
 	
+	@Override
+	public void memberLoginDateUpdate(String memberID) {
+		mapper.memberLoginDateUpdate(memberID);
+	}
 	
+	@Override
+	public List<MemberVO> memberLoginDate() {
+		return mapper.memberLoginDate();
+	}
+	
+	@Override
+	public int humanCheck(String memberID) {
+		return mapper.humanCheck(memberID);
+	}
+	
+	@Override
+	public void memberConvertHuman(String memberID) {
+		mapper.memberConvertHuman(memberID);
+	}
 	
 	@Override
 	public void memberDelete(String memberID) {

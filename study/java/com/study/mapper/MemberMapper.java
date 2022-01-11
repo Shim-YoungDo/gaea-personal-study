@@ -1,5 +1,7 @@
 package com.study.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.study.vo.MemberVO;
@@ -39,6 +41,14 @@ public interface MemberMapper {
 //	
 //	
 //	public int mailAuthInquire(int mailCheck);
+	
+	public void memberLoginDateUpdate(String memberID);
+	
+	public List<MemberVO> memberLoginDate ();
+	
+	public int humanCheck(String memberID);
+	
+	public void memberConvertHuman(String memberID);
 	
 	public void memberDelete(String memberID);
 }

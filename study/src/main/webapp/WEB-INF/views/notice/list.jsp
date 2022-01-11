@@ -27,6 +27,9 @@
 		<div class="login_success_area">
 			<span>아이디:${member}</span>
 			<a href="javascript:void(0)" onClick="javascript:logout()">로그아웃</a>
+			<c:if test="${memberHumanResult == 0 }">
+			<span>이 계정은 휴면상태입니다.</span>
+			</c:if>
 		</div>
 		</c:if>
 		
@@ -160,7 +163,7 @@
 		
 		function loginView(){
 		    let f = document.createElement('form');
-		    f.setAttribute('method', 'post');
+		    f.setAttribute('method', 'get');
 		    f.setAttribute('action', '/member/loginView');
 		    document.body.appendChild(f);
 		    f.submit();

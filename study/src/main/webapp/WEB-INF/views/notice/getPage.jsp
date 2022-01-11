@@ -42,7 +42,9 @@
 	<div class="button_wrap">
 		<a class="button" id="list_button">목록 페이지</a>
 		<c:if test="${member == pageInfo.noticeWriter}"> 
+		<c:if test="${memberHumanResult != 0 }">
 		<a class="button" id="modify_button">수정 하기</a>
+		</c:if>
 		</c:if>
 	</div>
 	
@@ -61,7 +63,7 @@
 	
 	$("#list_button").on("click", function(e){
 		form.find("#noticeNumber").remove();
-		form.attr("action", "/notice/callList");
+		form.attr("action", "/notice/list");
 		form.submit();
 	});
 	

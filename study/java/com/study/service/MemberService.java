@@ -35,6 +35,13 @@ public interface MemberService {
 	 */
 	public MemberVO memberLogin(MemberVO member);
 	
+	public void memberLoginDateUpdate(String memberID);
+	
+	public List<MemberVO> memberLoginDate ();
+	
+	public int humanCheck(String memberID);
+
+	public void memberConvertHuman(String memberID);
 	
 	public void memberDelete(String memberID);
 }

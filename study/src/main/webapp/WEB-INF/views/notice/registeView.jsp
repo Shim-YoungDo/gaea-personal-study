@@ -14,25 +14,29 @@
 </head>
 <body>
 
-<h1>게시판 등록</h1>
 <form id="enroll_form" action="/notice/register" method="post">
 <c:if test="${member != null}">
-	<div class="input_wrap">
-		<label>Title</label>
-		<input class="noticeTitle" name="noticeTitle">
-		<span class="title_check">제목을 입력해주세요.</span>
-	</div>
-	<div class="input_wrap">
-		<label>Content</label>
-		<textarea rows="3" class="noticeContent" name="noticeContent"></textarea>
-		<span class="content_check">내용을 입력해주세요.</span>
-	</div>
-	<div class="input_wrap">
-		<label>Writer</label>
-		<input class="writer_input" name="noticeWriter" readonly="readonly" value="${member}">
-	</div>
-	<button class="enroll_button">등록</button>
+	<c:if test="${memberHumanResult != 0}">
+		<div class="input_wrap">
+			<label>Title</label>
+			<input class="noticeTitle" name="noticeTitle">
+			<span class="title_check">제목을 입력해주세요.</span>
+		</div>
+		<div class="input_wrap">
+			<label>Content</label>
+			<textarea rows="3" class="noticeContent" name="noticeContent"></textarea>
+			<span class="content_check">내용을 입력해주세요.</span>
+		</div>
+		<div class="input_wrap">
+			<label>Writer</label>
+			<input class="writer_input" name="noticeWriter" readonly="readonly" value="${member}">
+		</div>
+		<button class="enroll_button">등록</button>
+	</c:if>
 	<!-- <button class="cancel_button">취소</button>-->
+	<c:if test="${memberHumanResult == 0 }">
+		<p>휴면 상태를 해제해주세요.</p>
+	</c:if>
 	</c:if>
 </form>
 <c:if test="${member == null}">

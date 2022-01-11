@@ -1,5 +1,7 @@
 package com.study.vo;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,4 +38,10 @@ public class MemberVO {
 	 * 회원 이메일
 	 */
 	private String memberMail;
+	
+	private Date memberJointDate;
+	
+	private Date memberLoginDate;
+	
+	private String memberHuman;
 }

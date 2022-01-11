@@ -97,7 +97,7 @@ public class MemberController {
 	 * 
 	 * @return 로그인 페이지로 리다이렉트
 	 */
-	@RequestMapping(value = "/member/loginView", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/loginView", method = RequestMethod.GET)
 	public String loginView() {
 
 		
@@ -130,16 +130,31 @@ public class MemberController {
 		 * result=0의 값을 view에 전달 후, 로그인 페이지로 리다이렉트하고 일치하는 정보가 있으면 해당 member객체의 id값을 가져와
 		 * session에 저장 후, 공지게시판의 게시글 리스트 페이지로 리다이렉트한다
 		 */
-		if (loginMember == null) {
+		if(loginMember == null) {
 			int result = 0;
 			redirect.addFlashAttribute("result", result);
-			return "redirect:/member/login";
+			return "redirect:/member/loginView";
 		}
 		log.info("[/member/login] memeberID param : {}  ", loginMember.getMemberID());
+		
+		String memberID = loginMember.getMemberID();
+		int humanResult = memberService.humanCheck(memberID);
+		log.info("[/member/login] memberID param : {}  ", memberID);
+		log.info("[/member/login] humanResult : {}  ", humanResult);
+		if(humanResult==0) {
+			int memberHumanResult = 0;
+//			redirect.addFlashAttribute("viewResult", viewResult);
+			session.setAttribute("memberHumanResult", memberHumanResult);
+			session.setAttribute("member", loginMember.getMemberID());
+			log.info("[/member/login] session param ID : {}  ", session.getAttribute("member"));
+//			return "redirect:/member/loginView";
+			return "redirect:/notice/list";
+		}
 		/**
 		 * session에 member객체의 id값 저장
 		 */
-		session.setAttribute("member", loginMember.getMemberID());
+		session.setAttribute("member", memberID);
+		memberService.memberLoginDateUpdate(memberID);
 		log.info("[/member/login] session param ID : {}  ", session.getAttribute("member"));
 		return "redirect:/notice/list";
 	}
