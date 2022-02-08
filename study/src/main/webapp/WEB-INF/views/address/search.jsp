@@ -12,11 +12,11 @@
 </head>
 <body>
 <form name="form" id="form" method="post">
-<input type="text" name="currentPage" value="1"/>
+<input type="text" name="currentPage" id="currentPage" value="1"/>
 <input type="text" name="countPerPage" value="10"/>
 <input type="hidden" name="resultType" value="json"/>
 <input type="text" name="keyword" value=""onKeydown="enterSearch();"/>
-<input type="button" onClick="getAddrLoc();"value="주소검색하기"/>
+<input type="button" onClick="initializingPage();"value="주소검색하기"/>
 <div id="list">
 </div>
 <div class="paginate" id="pageApi"></div>
@@ -25,11 +25,19 @@
 <script>
 
 function goPage(pageNum){
+	
 	document.form.currentPage.value=pageNum;
-	getAddrLoc();
+	getAddr();
 }
 
-function getAddrLoc(){
+function initializingPage(){
+	
+	document.getElementById("currentPage").value="1";
+	getAddr();
+}
+
+function getAddr(){
+	
 	if(!checkSearchedWord(document.form.keyword)){
 		return;
 	}
@@ -39,33 +47,36 @@ function getAddrLoc(){
 		data:$("#form").serialize(),
 		dataType:"json",
 		success:function(data){
-			//alert("통신성공");
-			//console.log(data.results.juso);
+			
 			var errCode = data.results.common.errorCode;
 			var errDesc = data.results.common.errorMessage;
 			if(errCode!="0"){
+				
 				alert(errCode+"="+errDesc);
 			}
 			else{
+				
 				if(data != null){
-					//console.log(data);
-					makeListJson(data);
+					
+					makeJusoList(data);
 					makePage(data);
 				}
 			}
 		},
 		error:function(xhr,status,error){
+			
 			alert("에러발생");
 		}
 	});
 }
 
-function makeListJson(data){
+function makeJusoList(data){
 	
 	var htmlStr = "";
 	 htmlStr += "<table>";
 	 
 	 $(data.results.juso).each(function(){
+		 
 		 htmlStr+="<tr>",
 		 htmlStr+="<td>"+this.roadAddr+"</td>",
 		 htmlStr+="<td>"+this.roadAddrPart1+"</td>",
@@ -73,49 +84,65 @@ function makeListJson(data){
 		 htmlStr+="<td>"+this.jibunAddr+"</td>"
 		 htmlStr+="<td>"+this.zipNo+"</td>"
 	 });
+	 
 	 htmlStr += "</table>";
 	 $("#list").html(htmlStr);
 }
 
 function makePage(data){
+	
 	var total = data.results.common.totalCount;
 	var pageNum = data.results.common.currentPage;
 	var pagingStr="";
 	if(total<1){
 	}
+	
 	else{
+		
 		var pageCount=document.form.countPerPage.value;
 		var endPage=Math.ceil((pageNum)/pageCount)*pageCount;
 		var startPage=endPage-9;
 		var realEnd=Math.ceil(total*1.0/pageCount);
 		if(realEnd<endPage){
+			
 			endPage=realEnd;
 		}
 		
 		var nextPage=endPage+1;
 		var prePage=startPage-1;
 		if(startPage>pageCount){
+			
 			pagingStr+="<a href='javascript:goPage("+prePage+");'>◁</a>";
 		}
+		
 		for(i=startPage; i<=endPage; i++){
+			
 			if(pageNum==i){
+				
 				pagingStr +="<a style='font-weight:bold;color:blue;font-size:15px;'href='javascript:goPage("+i+");'>"+i+"</a>";
 			}
 			else{
+				
 				pagingStr+="<a href='javascript:goPage("+i+");'>"+ i + "</a>";
 			}
 		}
+		
 		if(endPage<total){
+			
 			pagingStr+="<a href='javascript:goPage("+nextPage+");'>▷</a>";
 		}
+		
 		$("#pageApi").html(pagingStr);
 	}
 }
 
 function checkSearchedWord(obj){
+	
 	if(obj.value.length>0){
+		
 		var expText = /[%=><]/;
 		if(expText.test(obj.value)==true){
+			
 			alert("특수문자 입력 불가!");
 			obj.value=obj.value.split(expText).join("");
 			return false;
@@ -126,6 +153,7 @@ function checkSearchedWord(obj){
 				"DROP", "EXEC", "UNION", "FETCH", "DECLARE", "TRUNCATE");
 		var regex;
 		for(var i=0;i<sqlArray.length; i++){
+			
 			regex = new RegExp(sqlArray[i], "gi");
 			
 			if(regex.test(obj.value)){
@@ -135,14 +163,17 @@ function checkSearchedWord(obj){
 			}
 		}
 	}
+	
 	return true;
 }
 
 function enterSearch(){
+	
 	var evt_code = (window.netscape)?ev.which:event.keyCode;
 	if(evt_code == 13){
+		
 		event.keyCode =0;
-		getAddrLoc();
+		initializingPage();
 	}
 }
 </script>
